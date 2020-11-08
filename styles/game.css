@@ -1,0 +1,17 @@
+#main{
+    position: relative;
+    width: 700px;
+    height: 700px;
+}
+#board{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+#player1{
+    position: absolute;
+    top: 620px;
+    left: 100px;
+    width: 100px;
+    height: 100px;
+}
