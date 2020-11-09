@@ -1,24 +1,29 @@
-section{
-        position: relative;
-}
-
 #board{
         background-color: white;
         width: 50%;
         height: 50%;
         position: absolute;
 }
-
-th{
+    width: 100%;
+    height: 100%;
     background-color: white;
-    width: 10px;
-    height: 10px;
-    border: black solid 1px;
+    position: absolute;
+    z-index:-1;
+}
+#player1{
+    position: absolute;
+    top: 620px;
+    left: 100px;
+    width: 30px;
+    height: 30px;
+}
+thead{
+    padding-bottom: 100px;
 }
 
-td{
-    background-color: white;
-    width: 10px;
-    height: 10px;
-    border: black solid 1px;
+#board tr:nth-child(3) td:nth-child(3){
+    background-color: yellow;
+}
+#board tr:nth-child(6) td:nth-child(1){
+    background-color: pink;
 }
