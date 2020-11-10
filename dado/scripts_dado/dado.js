@@ -1,19 +1,17 @@
 //Tira el dado
 function rollDice() {
-    const dice = [...document.querySelectorAll(".dice-list")];
-    dice.forEach(die => {
+    const dice = document.querySelector(".dice-list");
       toggleClasses(die);
       die.dataset.roll = getRandomNumber(1, 6); 
       /*La función "dataset" nos permite acceder a los elementos personalizados como datos dentro del código HTML,
       en éste caso, las caras del dado, que se han identificado dentro de los "li"*/
-    });
   }
   
 
   //Hace el cambio de clases en el CSS durante la animación.
   function toggleClasses(die) {
-    //die.classList.toggle("odd-roll");//un solo dado
-    die.classList.toggle("even-roll");//dos dados
+    die.classList.toggle("odd-roll");//un solo dado
+    //die.classList.toggle("even-roll");//dos dados
   }
   
 

@@ -26,7 +26,13 @@ var Dice = function () {
         var randomNumber = Math.floor((Math.random()*this.faces)+1);
         return randomNumber;
     }
-};
+    this.side1 = "assets/images/d1.png";
+    this.side2 = "assets/images/d2.png";
+    this.side3 = "assets/images/d3.png";
+    this.side4 = "assets/images/d4.png";
+    this.side5 = "assets/images/d5.png";
+    this.side6 = "assets/images/d6.png";
+}
 /* 
 OBJETO PLAYER: genera una variable de un jugador con las caracterísitcas
 nombre del jugador, posicion en el tablero, contador interior 
@@ -102,6 +108,10 @@ var Board = function () {
         }
     }
 };
+
+/*
+
+*/
 function moveOnBoard(){
     if (player1.cell >= 7 && player1.cell < 12 || player1.cell >= 25 && player1.cell < 28 || player1.cell >= 35 && player1.cell < 36 ) {
         player1.moveUp();
@@ -113,18 +123,28 @@ function moveOnBoard(){
         player1.moveRight();
     }
 }
+
+/*
+
+*/
 function moveOnReverse(){
     if (player1.cell === 35){
         player1.moveRight();
     } else if (player1.cell === 34){
         player1.moveDown();
-    } else if (player1.cell <= 33 && player1.cell > 31){
+    } else if (player1.cell <= 33 && player1.cell > 31) {
         player1.moveLeft();
     } else {
         player1.moveUp();
     }
-
 }
+
+/*function moveDice(dice){
+    var divDice = document.getElementById("showDice");
+    var timerIdDice = setInterval (function () {
+        //divDice.innerHTML = "<img src=" + dice.side1 +" alt='Dice' width='100' height='100'>";
+    },1000);
+}*/
 
 var dice = new Dice();
 var player1 = new Player("player1");
@@ -137,6 +157,7 @@ window.onload = function (){
         var diceResult = dice.roll();
         document.getElementById("showDice").innerText = diceResult;
         player1.move(diceResult);
+        moveDice(dice);
     }
 }
 
