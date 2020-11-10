@@ -10,13 +10,17 @@
     position: absolute;
     z-index:-1;
 }
+#canvas{
+    width: 100%;
+    height: 100%;
+    position:relative;
+}
 #player1{
     position: absolute;
-    top: 620px;
-    left: 100px;
     width: 30px;
     height: 30px;
 }
+
 thead{
     padding-bottom: 100px;
 }
@@ -27,16 +31,9 @@ thead{
 #board tr:nth-child(6) td:nth-child(1){
     background-color: pink;
 }
-th{
-    background-color: white;
-    width: 10px;
-    height: 10px;
-    border: black solid 1px;
-}
 
 td{
     background-color: white;
-    width: 10px;
-    height: 10px;
+
     border: black solid 1px;
 }
