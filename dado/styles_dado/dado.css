@@ -84,7 +84,7 @@
   .even-roll[data-roll="6"] {
     transform: rotateX(360deg) rotateY(900deg) rotateZ(360deg);
   }
-  .odd-roll[data-roll="1"] {
+  /*.odd-roll[data-roll="1"] {
     transform: rotateX(-360deg) rotateY(-720deg) rotateZ(-360deg);
   }
   .odd-roll[data-roll="2"] {
@@ -101,7 +101,7 @@
   }
   .odd-roll[data-roll="6"] {
     transform: rotateX(-360deg) rotateY(-900deg) rotateZ(-360deg);
-  }
+  }*/
   [data-side="1"] {
     transform: rotate3d(0, 0, 0, 90deg) translateZ(4rem);
   }

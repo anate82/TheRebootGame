@@ -12,7 +12,7 @@ function rollDice() {
 
   //Hace el cambio de clases en el CSS durante la animación.
   function toggleClasses(die) {
-    die.classList.toggle("odd-roll");//un solo dado
+    //die.classList.toggle("odd-roll");//un solo dado
     die.classList.toggle("even-roll");//dos dados
   }
   

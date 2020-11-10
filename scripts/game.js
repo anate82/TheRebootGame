@@ -38,10 +38,35 @@ var Player = function (player) {
     this.posX = 100;   
     this.posY = 620;
     this.cell = 1;
-   //this.moveCount = 0;--->tba
+    this.moveCount = 0;//--->tba
+    this.direction = 1;
    //this.color = "";--->tba
     this.active = false;
     this.meeple = document.getElementById(player);
+
+    this.move = function(diceRoll) {
+        var timerId = setInterval(function () {
+            if (diceRoll === 0){
+                clearInterval(timerId);
+                player1.direction = 1;
+                if(player1.cell === 36) {
+                    alert("You win");
+                }
+                return;
+            }
+            diceRoll--;
+            if (diceRoll > 0 && player1.cell === 36) {
+                player1.direction = -1;
+            } 
+            if (player1.direction === -1) {
+                player1.cell--;
+                moveOnReverse();
+            } else {
+                player1.cell++;
+                moveOnBoard();
+            }
+        },1000);
+    }
 /*
 FUNCIONES DE MOVIMIENTO: pequeñas funciones propias del objeto Player que
 calculan el movimiento de la ficha en las cuatro direcciones en el tablero.
@@ -77,6 +102,30 @@ var Board = function () {
         }
     }
 };
+function moveOnBoard(){
+    if (player1.cell >= 7 && player1.cell < 12 || player1.cell >= 25 && player1.cell < 28 || player1.cell >= 35 && player1.cell < 36 ) {
+        player1.moveUp();
+    } else if (player1.cell >=12 && player1.cell < 17 || player1.cell >= 28 && player1.cell < 31 || player1.cell === 36){ 
+        player1.moveLeft();
+    } else if (player1.cell >= 17 && player1.cell < 21 || player1.cell >= 31 && player1.cell < 33){
+        player1.moveDown();
+    } else {
+        player1.moveRight();
+    }
+}
+function moveOnReverse(){
+    if (player1.cell === 35){
+        player1.moveRight();
+    } else if (player1.cell === 34){
+        player1.moveDown();
+    } else if (player1.cell <= 33 && player1.cell > 31){
+        player1.moveLeft();
+    } else {
+        player1.moveUp();
+    }
+
+}
+
 var dice = new Dice();
 var player1 = new Player("player1");
 player1.meeple.style.top = player1.posY + "px";
@@ -87,23 +136,7 @@ window.onload = function (){
     diceButton.onclick = function () {
         var diceResult = dice.roll();
         document.getElementById("showDice").innerText = diceResult;
-        var timerId = setInterval(function (){
-            if (diceResult === 0){
-                clearInterval(timerId);
-                return;
-            }
-            diceResult--;
-            if (player1.cell >= 6 && player1.cell < 11 || player1.cell >= 24 && player1.cell < 27) {
-                player1.moveUp();
-            } else if (player1.cell >=11 && player1.cell < 16 ){ 
-                player1.moveLeft();
-            } else if (player1.cell >= 16 && player1.cell < 20){
-                player1.moveDown();
-            } else {
-                player1.moveRight();
-            }
-            player1.cell++;
-        },1000);
+        player1.move(diceResult);
     }
 }
 
