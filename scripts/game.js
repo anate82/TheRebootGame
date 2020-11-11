@@ -139,12 +139,47 @@ function moveOnReverse(){
     }
 }
 
-/*function moveDice(dice){
-    var divDice = document.getElementById("showDice");
+function moveDice(dice,diceResult){
+    var cont = 0;
     var timerIdDice = setInterval (function () {
-        //divDice.innerHTML = "<img src=" + dice.side1 +" alt='Dice' width='100' height='100'>";
-    },1000);
-}*/
+        cont++;
+        switch (Math.floor((Math.random()*6)-1)) {
+            case 1: document.getElementById("diceImage").src =dice.side1;
+                    break;
+            case 2: document.getElementById("diceImage").src =dice.side2;
+                    break;
+            case 3: document.getElementById("diceImage").src =dice.side3;
+                    break;
+            case 4: document.getElementById("diceImage").src =dice.side4;
+                    break;
+            case 5: document.getElementById("diceImage").src =dice.side5;
+                    break;
+            case 6: document.getElementById("diceImage").src =dice.side6;
+                    break;
+        }
+        if (cont === 15) {
+            clearInterval(timerIdDice);
+            switch (diceResult) {
+                case 1: document.getElementById("diceImage").src =dice.side1;
+                        break;
+                case 2: document.getElementById("diceImage").src =dice.side2;
+                        break;
+                case 3: document.getElementById("diceImage").src =dice.side3;
+                        break;
+                case 4: document.getElementById("diceImage").src =dice.side4;
+                        break;
+                case 5: document.getElementById("diceImage").src =dice.side5;
+                        break;
+                case 6: document.getElementById("diceImage").src =dice.side6;
+                        break;
+            }
+
+            alert("Mueves "+ diceResult +" posiciones!!!!");
+            player1.move(diceResult);
+            return;
+        }
+    },350);
+}
 
 var dice = new Dice();
 var player1 = new Player("player1");
@@ -155,9 +190,9 @@ window.onload = function (){
     var diceButton = document.getElementById("dice");
     diceButton.onclick = function () {
         var diceResult = dice.roll();
-        document.getElementById("showDice").innerText = diceResult;
-        player1.move(diceResult);
-        moveDice(dice);
+        moveDice(dice,diceResult);
+        //document.getElementById("showDice").innerText = diceResult;
+        
     }
 }
 

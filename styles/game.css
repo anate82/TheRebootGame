@@ -1,4 +1,4 @@
-body{
+body {
     background-color: #1f2833;
     font-family: Arial, Helvetica, sans-serif;
     font-style: normal;
@@ -10,36 +10,45 @@ body{
     width: 1000px;
     height: 650px;
 }
-#board{
+#board {
     width: 100%;
     height: 100%;
     background-color: #1f2833;
     position: absolute;
     z-index:-1;
 }
-#canvas{
+#canvas {
     width: 100%;
     height: 100%;
     position:relative;
 }
-#player1{
+
+#showDice {
+    width: 50px;
+    height: 50px;
+}
+#diceImage {
+    width: 100%;
+    height: 100%;
+}
+#player1 {
     position: absolute;
     width: 30px;
     height: 30px;
 }
 
-thead{
+thead {
     padding-bottom: 100px;
 }
 
-#board tr:nth-child(3) td:nth-child(3){
+#board tr:nth-child(3) td:nth-child(3) {
     background-color: #45a29e;
 }
-#board tr:nth-child(6) td:nth-child(1){
+#board tr:nth-child(6) td:nth-child(1) {
     background-color: #00a1c9;
 }
 
-td{
+td {
     background-color: #1f2833;
     border: #45a29e solid 1px;
 }
