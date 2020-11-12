@@ -1,6 +1,6 @@
 /***********************************************
  * PROYECTO FINAL BLOQUE 1.
- *  -Ana Ángulo.
+ *  -Ana Angulo.
  *  -Romina Elorrieta.
  *  -Luis Sánchez.
  * TÍTULO: "The Reboot Game"
@@ -51,10 +51,12 @@ var Player = function (player) {
     this.meeple = document.getElementById(player);
 
     this.move = function(diceRoll) {
-        var timerId = setInterval(function () {
+
+        var timerId = setInterval((function () {
             if (diceRoll === 0){
                 clearInterval(timerId);
                 player1.direction = 1;
+                this.runEvent(this.cell);
                 if(player1.cell === 36) {
                     alert("You win");
                 }
@@ -66,12 +68,13 @@ var Player = function (player) {
             } 
             if (player1.direction === -1) {
                 player1.cell--;
-                moveOnReverse();
+                 moveOnReverseEvent();
+                //moveOnReverse();
             } else {
                 player1.cell++;
                 moveOnBoard();
             }
-        },1000);
+        }).bind(this),1000);
     }
 /*
 FUNCIONES DE MOVIMIENTO: pequeñas funciones propias del objeto Player que
@@ -93,7 +96,39 @@ calculan el movimiento de la ficha en las cuatro direcciones en el tablero.
         this.posX -= 160.8;
         this.meeple.style.left = this.posX + "px";
     }
+    this.moveTwoPosition = function (){
+        this.move(2);
+    }
+    this.moveTwoBack = function (){
+        this.direction = -1;
+        this.move(2);
+    }
+    this.resetGame = function (){
+        this.direction = -1;
+        this.move (23);
+    }
+    this.moveFivePosition = function (){
+        this.move (5);
+    }
+
+
+    this.runEvent = function (cell) {
+        switch(cell) {
+            case 6:
+            case 12: this.moveTwoPosition ();
+                    break;
+            case 8:
+            case 16: this.moveTwoBack ();
+                 break;
+            case 24: this.resetGame ();
+                    break;
+            case 18: this.moveFivePosition ();
+                    break; 
+        }
+    }
 };
+
+
 /*
 OBJETO BOARD: genera el tablero de juego con un array de 6x6, un dado y un jugador.
 */
@@ -121,6 +156,17 @@ function moveOnBoard(){
         player1.moveDown();
     } else {
         player1.moveRight();
+    }
+}
+function moveOnReverseEvent(){
+    if (player1.cell <= 24 && player1.cell > 19 || player1.cell <= 5 && player1.cell > 0){
+        player1.moveLeft();
+    } else if (player1.cell <= 19 && player1.cell > 15){
+        player1.moveUp();
+    } else if (player1.cell <= 15  && player1.cell > 10) {
+        player1.moveRight();
+    } else if (player1.cell <= 10 && player1.cell > 5) {
+        player1.moveDown();
     }
 }
 
@@ -196,20 +242,3 @@ window.onload = function (){
     }
 }
 
-
-/*LO MÁS POSIBLE ES QUE NO LO NECESITEMOS
-switch(dado){
-    case 1:mostrar cara 1;
-    break;
-    case 2:mostrar cara 2;
-    break;
-    case 3:mostrar cara 3;
-    break;
-    case 4:mostrar cara 4;
-    break;
-    case 5:mostrar cara 5;
-    break;
-    case 6:mostrar cara 6;
-    break;
-}
-*/
