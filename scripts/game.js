@@ -51,7 +51,6 @@ var Player = function (player) {
     this.meeple = document.getElementById(player);
 
     this.move = function(diceRoll) {
-
         var timerId = setInterval((function () {
             if (diceRoll === 0){
                 clearInterval(timerId);
@@ -68,8 +67,7 @@ var Player = function (player) {
             } 
             if (player1.direction === -1) {
                 player1.cell--;
-                 moveOnReverseEvent();
-                //moveOnReverse();
+                moveOnReverse();
             } else {
                 player1.cell++;
                 moveOnBoard();
@@ -115,20 +113,34 @@ calculan el movimiento de la ficha en las cuatro direcciones en el tablero.
     this.runEvent = function (cell) {
         switch(cell) {
             case 6:
-            case 12: this.moveTwoPosition ();
+            case 12:this.moveTwoPosition ();
                     break;
-            case 8:
+            case 9:
             case 16: this.moveTwoBack ();
                  break;
-            case 24: this.resetGame ();
+            case 24:this.resetGame ();
                     break;
-            case 18: this.moveFivePosition ();
+            case 18:this.moveFivePosition ();
                     break; 
         }
     }
 };
 
-
+var Popup = function (){
+    this.popup = document.querySelector(".popup-wrapper");
+    this.close = document.querySelector(".popup-close");
+    this.message = function (message){
+       document.getElementById("messagePopUp").innerText = message;
+    }
+    this.show = function (){
+        this.popup.style.display = 'block';
+    }
+    this.close = function (){
+        this.popup.addEventListener('click', e => {
+            this.popup.style.display = "none";
+        });
+    }
+}
 /*
 OBJETO BOARD: genera el tablero de juego con un array de 6x6, un dado y un jugador.
 */
@@ -149,6 +161,7 @@ var Board = function () {
 */
 function moveOnBoard(){
     if (player1.cell >= 7 && player1.cell < 12 || player1.cell >= 25 && player1.cell < 28 || player1.cell >= 35 && player1.cell < 36 ) {
+      
         player1.moveUp();
     } else if (player1.cell >=12 && player1.cell < 17 || player1.cell >= 28 && player1.cell < 31 || player1.cell === 36){ 
         player1.moveLeft();
@@ -158,21 +171,25 @@ function moveOnBoard(){
         player1.moveRight();
     }
 }
-function moveOnReverseEvent(){
-    if (player1.cell <= 24 && player1.cell > 19 || player1.cell <= 5 && player1.cell > 0){
+function moveOnReverse(){
+    if (player1.cell <= 33 && player1.cell > 31 ||player1.cell <= 23 && player1.cell > 19 || player1.cell <= 5 && player1.cell > 0){
+        console.log(player1.cell);
         player1.moveLeft();
-    } else if (player1.cell <= 19 && player1.cell > 15){
+    } else if (player1.cell <= 31 && player1.cell > 29 || player1.cell <= 19 && player1.cell > 15){
+        console.log(player1.cell);
         player1.moveUp();
-    } else if (player1.cell <= 15  && player1.cell > 10) {
+    } else if (player1.cell === 35 || player1.cell <= 29 && player1.cell > 26 || player1.cell <= 15  && player1.cell > 10) {
+        console.log(player1.cell);
         player1.moveRight();
-    } else if (player1.cell <= 10 && player1.cell > 5) {
+    } else if (player1.cell === 34 || player1.cell === 33 || player1.cell <= 26 && player1.cell > 23 || player1.cell <= 10 && player1.cell > 5) {
+        console.log(player1.cell);
         player1.moveDown();
     }
 }
 
 /*
 
-*/
+
 function moveOnReverse(){
     if (player1.cell === 35){
         player1.moveRight();
@@ -183,7 +200,7 @@ function moveOnReverse(){
     } else {
         player1.moveUp();
     }
-}
+}*/
 
 function moveDice(dice,diceResult){
     var cont = 0;
@@ -227,18 +244,27 @@ function moveDice(dice,diceResult){
     },350);
 }
 
+
 var dice = new Dice();
 var player1 = new Player("player1");
+var popup = new Popup();
 player1.meeple.style.top = player1.posY + "px";
 player1.meeple.style.left = player1.posX + "px";
+
 
 window.onload = function (){
     var diceButton = document.getElementById("dice");
     diceButton.onclick = function () {
         var diceResult = dice.roll();
-        moveDice(dice,diceResult);
-        //document.getElementById("showDice").innerText = diceResult;
-        
+        moveDice(dice, diceResult);
+      //  popup.show();
     }
+   // popup.close();
+   /* Pendiente de funcionamiento
+        document.getElementById("myBtn").onclick = function (){
+        console.log("boton");
+        popup.style.display = "none";
+    }*/
+
 }
 
