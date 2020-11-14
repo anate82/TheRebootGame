@@ -132,7 +132,7 @@ var Popup = function (){
     this.message = function (message){
        document.getElementById("messagePopUp").innerText = message;
     }
-    this.show = function (){
+    /*this.show = function (){
         this.popup.style.display = 'block';
     }
     this.close = function (){
