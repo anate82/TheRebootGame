@@ -114,13 +114,17 @@ calculan el movimiento de la ficha en las cuatro direcciones en el tablero.
         switch(cell) {
             case 6:
             case 12:this.moveTwoPosition ();
+                alert("Mueve 2 posiciones");
                     break;
             case 9:
             case 16: this.moveTwoBack ();
+                alert("Mueve 2 posiciones hacía atrás");
                  break;
             case 24:this.resetGame ();
+                alert("Ohhh...vuelves a empezar");
                     break;
             case 18:this.moveFivePosition ();
+                alert("Mueve 5 posiciones")
                     break; 
         }
     }
@@ -132,7 +136,7 @@ var Popup = function (){
     this.message = function (message){
        document.getElementById("messagePopUp").innerText = message;
     }
-    /*this.show = function (){
+    this.show = function (){
         this.popup.style.display = 'block';
     }
     this.close = function (){
@@ -156,9 +160,6 @@ var Board = function () {
     }
 };
 
-/*
-
-*/
 function moveOnBoard(){
     if (player1.cell >= 7 && player1.cell < 12 || player1.cell >= 25 && player1.cell < 28 || player1.cell >= 35 && player1.cell < 36 ) {
       
@@ -171,6 +172,7 @@ function moveOnBoard(){
         player1.moveRight();
     }
 }
+
 function moveOnReverse(){
     if (player1.cell <= 33 && player1.cell > 31 ||player1.cell <= 23 && player1.cell > 19 || player1.cell <= 5 && player1.cell > 0){
         console.log(player1.cell);
@@ -186,21 +188,6 @@ function moveOnReverse(){
         player1.moveDown();
     }
 }
-
-/*
-
-
-function moveOnReverse(){
-    if (player1.cell === 35){
-        player1.moveRight();
-    } else if (player1.cell === 34){
-        player1.moveDown();
-    } else if (player1.cell <= 33 && player1.cell > 31) {
-        player1.moveLeft();
-    } else {
-        player1.moveUp();
-    }
-}*/
 
 function moveDice(dice,diceResult){
     var cont = 0;
@@ -252,19 +239,22 @@ player1.meeple.style.top = player1.posY + "px";
 player1.meeple.style.left = player1.posX + "px";
 
 
+
+
 window.onload = function (){
     var diceButton = document.getElementById("dice");
     diceButton.onclick = function () {
         var diceResult = dice.roll();
         moveDice(dice, diceResult);
-      //  popup.show();
+        popup.show();
+        
     }
-   // popup.close();
-   /* Pendiente de funcionamiento
-        document.getElementById("myBtn").onclick = function (){
-        console.log("boton");
-        popup.style.display = "none";
-    }*/
-
+        document.getElementsByClassName("popup-close")[0].onclick = function () {
+            popup.close();
+        }
+        document.getElementById("btn-popup-close").addEventListener("click", function (){
+            popup.close();
+    });
+ 
 }
 
