@@ -53,39 +53,38 @@ var Player = function (meeple) {
     this.active = false;
     this.meeple = meeple;
 
-    this.move = function(diceRoll, player) {
+    this.move = function(diceRoll) {
         var timerId = setInterval((function () {
             if (diceRoll === 0){
                 clearInterval(timerId);
-                player.direction = 1;
-                this.runEvent(this.cell, player);
-                if(player.cell === 36) {
-                    alert("You win");
+                this.direction = 1;
+                this.runEvent(this.cell);
+                if(this.cell === 36) {
+                    popup.message("Felicidades has entregado el proyecto!!! te has ganado unas buenas vacaciones");
+                    popup.show();
                 }
                 return;
             }
             diceRoll--;
-            if (diceRoll > 0 && player.cell === 36) {
-                player.direction = -1;
+            if (diceRoll > 0 && this.cell === 36) {
+                this.direction = -1;
             } 
-            if (player.direction === -1) {
-                player.cell--;
-                moveOnReverse(player);
+            if (this.direction === -1) {
+                this.cell--;
+                moveOnReverse(this);
                 document.getElementById("diceImage").style.display = "none";
             } else {
-                player.cell++;
-                moveOnBoard(player);
+                this.cell++;
+                moveOnBoard(this);
                 document.getElementById("diceImage").style.display = "none";
             }
         }).bind(this),1000);
     }
-
-/*
-FUNCIONES DE MOVIMIENTO: funciones propias del objeto Player que
-calculan el movimiento de la ficha en las cuatro direcciones en el tablero
-y en base a la casilla en la que caigan.
-*/
-
+    /*
+    FUNCIONES DE MOVIMIENTO: funciones propias del objeto Player que
+    calculan el movimiento de la ficha en las cuatro direcciones en el tablero
+    y en base a la casilla en la que caigan.
+    */
     this.moveRight = function () {
         this.posX += 160.8;
         this.meeple.style.left = this.posX + "px";
@@ -102,46 +101,44 @@ y en base a la casilla en la que caigan.
         this.posX -= 160.8;
         this.meeple.style.left = this.posX + "px";
     }
-    this.moveTwoPosition = function (player) {
-        this.move(2,player);
+    this.moveTwoPosition = function () {
+        this.move(2);
     }
-    this.moveTwoBack = function (player) {
+    this.moveTwoBack = function () {
         this.direction = -1;
-        this.move(2,player);
+        this.move(2);
     }
-    this.resetGame = function (player) {
+    this.resetGame = function () {
         this.direction = -1;
-        this.move (23,player);
+        this.move (23);
     }
-    this.moveFivePosition = function (player) {
-        this.move (5,player);
+    this.moveFivePosition = function () {
+        this.move (5);
     }
-
-/*FUNCIÓN RUNEVENT: define las casillas en las cuales se producirá
-un evento en el tablero. En base a la casilla en la que caiga el
-jugador, se llamará a una función u otra, y se pueden avanzar ó 
-perder posiciones*/
-
-    this.runEvent = function (cell,player) {
+    /*FUNCIÓN RUNEVENT: define las casillas en las cuales se producirá
+    un evento en el tablero. En base a la casilla en la que caiga el
+    jugador, se llamará a una función u otra, y se pueden avanzar ó 
+    perder posiciones*/
+    this.runEvent = function (cell) {
         switch(cell) {
             case 6:
             case 12:popup.message("Has estado estudiando mucho, avanzas 2 posiciones para que te veas los recursos adicionales");
                     popup.show();
-                    this.moveTwoPosition (player);
+                    this.moveTwoPosition ();
                     break;
             case 9:
             case 16:popup.message("¡¡¡No has terminado el lab!!!, retrocede 2 posiciones para que te veas las slides");
                     popup.show();
-                    this.moveTwoBack (player);
+                    this.moveTwoBack ();
                     break;
             case 24:
             case 34:popup.message("No has entregado el proyecto a tiempo!!!! Ohhh...vuelves a empezar el bootcamp");
                     popup.show();
-                    this.resetGame (player);
+                    this.resetGame ();
                     break;
             case 18:popup.message("Nestor te ayuda con tus dudas y avanzas 5 posiciones!!");
                     popup.show();
-                    this.moveFivePosition (player);
+                    this.moveFivePosition ();
                     break; 
             case 27:popup.message("Llegas tarde..... Te llevas un PUNISHER: Pierdes un turno por listo :(");//pierde un turno, pendiente de finalizar 
                     popup.show();
@@ -149,35 +146,36 @@ perder posiciones*/
                     checkTurn(player);
                     break;
 //******* Revisar pq el popup se cierra cuando se inserta la información en el input ****************/
-      /*    case 2:
+   /*        case 2:
             case 3:
             case 4:
-            case 5:
-                popup.message("Responde a la pregunta, Rebooter: Piedra, papel, tijera, lagarto o ....");
+            case 5:popup.message("Responde a la pregunta, Rebooter: Piedra, papel, tijera, lagarto o ....");
                    document.getElementById("inputPopUp").style.visibility = "visible";
                    var botonConfirmar = document.getElementById("btn-popup-close");
                    botonConfirmar.innerText = "Confirmar";
                    popup.show();
-                   botonConfirmar.addEventListener("click", function () {
-                       if (document.getElementById("inputPopUp").value === "Spock") {
-                            popup.message("Correctisimo!!!! Avanzas dos posiciones");
-                            document.getElementById("inputPopUp").style.visibility = "hidden";
-                            popup.show();
-                            this.moveTwoPosition (player);
-                            document.getElementById("btn-popup-close").innerText = "Cerrar";
-
-                        } else {
-                            popup.message("Ohhhhh!!!! Me había olvidado de que las personas normales tienen límites.... Retrocedes dos posiciones");
-                            document.getElementById("inputPopUp").style.visibility = "hidden";
-                            popup.show();
-                            this.moveTwoBack (player);
-                            document.getElementById("btn-popup-close").innerText = "Cerrar";
-                        }
-                   }.bind(this));
                    break;*/
         }
     }
 };
+
+function answerPopup(player){
+    if (document.getElementById("inputPopUp").value === "Spock") {
+        popup.message("Correctisimo!!!! Avanzas dos posiciones");
+        document.getElementById("inputPopUp").style.visibility = "hidden";
+        popup.show();
+        player.moveTwoPosition (player);
+        document.getElementById("btn-popup-close").innerText = "Cerrar";
+
+    } else {
+
+        popup.message("Ohhhhh!!!! Me había olvidado de que las personas normales tienen límites.... Retrocedes dos posiciones");
+        document.getElementById("inputPopUp").style.visibility = "hidden";
+        popup.show();
+        player.moveTwoBack (player);
+        document.getElementById("btn-popup-close").innerText = "Cerrar";
+    }
+}
 
 /*OBJETO POPUP: define un objeto de tipo ventana emergente*/
 
@@ -191,9 +189,7 @@ var Popup = function (){
         this.popup.style.display = 'block';
     }
     this.close = function (){
-        this.popup.addEventListener('click', e => {
-            this.popup.style.display = "none";
-        });
+        this.popup.style.display = "none";
     }
 }
 
@@ -244,40 +240,17 @@ function moveOnReverse(player) {
 /*FUNCIÓN MOVEDICE: genera un número aleatorio entre 1 y 6, el cual utiliza para
 mostrar la cara del dado animado. El dado "salta" 15 veces*/
 
-function moveDice(dice,diceResult ,player){
-    var cont = 0;
+function moveDice (dice, diceResult, player){
+    var cont = 15;
     var timerIdDice = setInterval (function () {
-        cont++;
-        switch (Math.floor((Math.random()*6)-1)) {
-            case 1: document.getElementById("diceImage").src = dice.side1;
-                    break;
-            case 2: document.getElementById("diceImage").src = dice.side2;
-                    break;
-            case 3: document.getElementById("diceImage").src = dice.side3;
-                    break;
-            case 4: document.getElementById("diceImage").src = dice.side4;
-                    break;
-            case 5: document.getElementById("diceImage").src = dice.side5;
-                    break;
-            case 6: document.getElementById("diceImage").src = dice.side6;
-                    break;
-        }
-        if (cont === 15) {
+        snd.play();
+        cont--;
+        let random = Math.floor((Math.random()*6)+1);
+        console.log(random);
+        document.getElementById("diceImage").src = dice['side'+random];
+        if (cont === 0) {
             clearInterval(timerIdDice);
-            switch (diceResult) {
-                case 1: document.getElementById("diceImage").src = dice.side1;
-                        break;
-                case 2: document.getElementById("diceImage").src = dice.side2;
-                        break;
-                case 3: document.getElementById("diceImage").src = dice.side3;
-                        break;
-                case 4: document.getElementById("diceImage").src =dice.side4;
-                        break;
-                case 5: document.getElementById("diceImage").src = dice.side5;
-                        break;
-                case 6: document.getElementById("diceImage").src = dice.side6;
-                        break;
-            }
+            document.getElementById("diceImage").src = dice['side'+diceResult];
             if (diceResult === 1) {
                 popup.message("Mueves "+ diceResult +" posicion!!!!");
                 popup.show();
@@ -285,12 +258,14 @@ function moveDice(dice,diceResult ,player){
                 popup.message("Mueves "+ diceResult +" posiciones!!!!");
                 popup.show();
             }
-            player.move(diceResult,player);
+            snd.pause();
+            player.move(diceResult);
             return;
         }
-    },350);
+    }, 550);
     document.getElementById("inputPopUp").style.visibility = "hidden";
 }
+
 function checkTurn (player){
     if (player1.active){
         player1.active = false;
@@ -324,6 +299,7 @@ player3.meeple.style.top = player3.posY + "px";
 player3.meeple.style.left = player3.posX + "px";
 player4.meeple.style.top = player4.posY + "px";
 player4.meeple.style.left = player4.posX + "px";
+var snd = new Audio("/assets/music/dice-1.wav");
 
 window.onload = function (){
     var diceButton = document.getElementById("diceButton");
@@ -332,17 +308,21 @@ window.onload = function (){
         var diceResult = dice.roll();
         if (player1.active) {
             moveDice(dice, diceResult, player1);
+            checkTurn(player1);
         } else if (player2.active) {
             moveDice(dice, diceResult, player2);
+            checkTurn(player2);
         }
     }
-    
-    document.getElementsByClassName("popup-close")[0].onclick = function () {
-        console.log("cierraPopup");
+    document.getElementById("popup-close").addEventListener("click", function () {
         popup.close();
-    }
+    });
     document.getElementById("btn-popup-close").addEventListener("click", function (){
-        console.log("cierrraBoton");
+        /*if (!player1.active && player1.cell >= 2 && player1.cell <= 5) {
+            answerPopup(player1);
+        } else if (!player2.active && player2.cell >= 2 && player2.cell <= 5) {
+            answerPopup(player2);
+        }*/
         popup.close();
     });
  
