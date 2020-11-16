@@ -19,6 +19,7 @@
 OBJETO DICE: genera una variable de un dado de "faces" caras con
 una función que retorna un número aleatorio entre 1 y 6
 */
+
 var Dice = function () {
     this.faces = 6;
     //Aquí podemos implementar el dado animado.
@@ -32,13 +33,15 @@ var Dice = function () {
     this.side4 = "assets/images/d4.png";
     this.side5 = "assets/images/d5.png";
     this.side6 = "assets/images/d6.png";
-}
+};
+
 /* 
 OBJETO PLAYER: genera una variable de un jugador con las caracterísitcas
 nombre del jugador, posicion en el tablero, contador interior 
 de movimientos, estado interior de actividad y color. Características como
 el nombre ó el color, se recogen por entrada de teclado.
 */
+
 var Player = function (meeple) {
     this.name = "";
     this.posX = 100;   
@@ -76,10 +79,13 @@ var Player = function (meeple) {
             }
         }).bind(this),1000);
     }
+
 /*
-FUNCIONES DE MOVIMIENTO: pequeñas funciones propias del objeto Player que
-calculan el movimiento de la ficha en las cuatro direcciones en el tablero.
+FUNCIONES DE MOVIMIENTO: funciones propias del objeto Player que
+calculan el movimiento de la ficha en las cuatro direcciones en el tablero
+y en base a la casilla en la que caigan.
 */
+
     this.moveRight = function () {
         this.posX += 160.8;
         this.meeple.style.left = this.posX + "px";
@@ -111,6 +117,10 @@ calculan el movimiento de la ficha en las cuatro direcciones en el tablero.
         this.move (5,player);
     }
 
+/*FUNCIÓN RUNEVENT: define las casillas en las cuales se producirá
+un evento en el tablero. En base a la casilla en la que caiga el
+jugador, se llamará a una función u otra, y se pueden avanzar ó 
+perder posiciones*/
 
     this.runEvent = function (cell,player) {
         switch(cell) {
@@ -129,7 +139,7 @@ calculan el movimiento de la ficha en las cuatro direcciones en el tablero.
                     popup.show();
                     this.resetGame (player);
                     break;
-            case 18:                    popup.message("Nestor te ayuda con tus dudas y avanzas 5 posiciones");
+            case 18:                    popup.message("Nestor te ayuda con tus dudas y avanzas 5 posiciones!!");
                     popup.show();
                     this.moveFivePosition (player);
                     break; 
@@ -137,14 +147,14 @@ calculan el movimiento de la ficha en las cuatro direcciones en el tablero.
     /*        case 2:
             case 3:
             case 4:
-            case 5:popup.message("Responde a la pregunta: Piedra, papel, lagarto o ....");
+            case 5:popup.message("Responde a la pregunta, Rebooter: Piedra, papel, tijera, lagarto o ....");
                    document.getElementById("inputPopUp").style.visibility = "visible";
                    var botonConfirmar = document.getElementById("btn-popup-close");
                    botonConfirmar.innerText = "Confirmar";
                    popup.show();
                    botonConfirmar.addEventListener("click", function () {
                        if (document.getElementById("inputPopUp").value === "Spock") {
-                            popup.message("Correcto!!!! Avanzas dos posiciones");
+                            popup.message("Correctisimo!!!! Avanzas dos posiciones");
                             document.getElementById("inputPopUp").style.visibility = "hidden";
                             popup.show();
                             this.moveTwoPosition (player);
@@ -163,7 +173,7 @@ calculan el movimiento de la ficha en las cuatro direcciones en el tablero.
     }
 };
 
-
+/*OBJETO POPUP: define un objeto de tipo ventana emergente*/
 
 var Popup = function (){
     this.popup = document.querySelector(".popup-wrapper");
@@ -180,6 +190,7 @@ var Popup = function (){
         });
     }
 }
+
 /*
 OBJETO BOARD: genera el tablero de juego con un array de 6x6, un dado y un jugador.
 
@@ -194,6 +205,8 @@ var Board = function () {
         }
     }
 };*/
+/*FUNCIÓN MOVEONBOARD: solventa los problemas de giro en el tablero. Se realiza
+el movimiento en base al intervalo de casillas en el que se encuentre el jugador*/
 
 function moveOnBoard(player) {
     if (player.cell >= 7 && player.cell < 12 || player.cell >= 25 && player.cell < 28 || player.cell >= 35 && player.cell < 36 ) {
@@ -207,6 +220,9 @@ function moveOnBoard(player) {
     }
 }
 
+/*FUNCIÓN MOVEONREVERSE: solventa el problema del movimiento hacia atrás en las
+distintas situaciones en las que se puede encontrar ésta condición en el tablero*/
+
 function moveOnReverse(player) {
     if (player.cell <= 33 && player.cell > 31 ||player.cell <= 23 && player.cell > 19 || player.cell <= 5 && player.cell > 0) {
         player.moveLeft(player);
@@ -218,6 +234,9 @@ function moveOnReverse(player) {
         player.moveDown(player);
     }
 }
+
+/*FUNCIÓN MOVEDICE: genera un número aleatorio entre 1 y 6, el cual utiliza para
+mostrar la cara del dado animado. El dado "salta" 15 veces*/
 
 function moveDice(dice,diceResult ,player){
     var cont = 0;
@@ -267,6 +286,7 @@ function moveDice(dice,diceResult ,player){
     document.getElementById("inputPopUp").style.visibility = "hidden";
 }
 
+/*BUCLE PRINCIPAL DEL JUEGO*/
 
 var dice = new Dice();
 var player1 = new Player(document.getElementById("player1"));
@@ -310,4 +330,3 @@ window.onload = function (){
     });
  
 }
-

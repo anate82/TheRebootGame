@@ -82,14 +82,14 @@ td {
     text-align: center;
     width: 100%;
     max-width: 300px;
-    background: white;
+    background: black;
     margin: 10% auto;
     padding: 20px;
     position: relative;
 }
  
 .popup button {
-    background: salmon;
+    background: #66fcf1;
     color: white;
     text-decoration: none;
     padding: 6px 10px;
@@ -99,7 +99,7 @@ td {
 }
  
 .popup button:hover {
-    background: palevioletred;
+    background: #45a29e;
     transition: all 0.2s;
 }
 .popup-content > h3{
