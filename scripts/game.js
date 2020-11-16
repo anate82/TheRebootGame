@@ -306,18 +306,27 @@ function checkTurn (player){
 var dice = new Dice();
 var player1 = new Player(document.getElementById("player1"));
 var player2 = new Player(document.getElementById("player2"));
+var player3 = new Player(document.getElementById("player3"));
+var player4 = new Player(document.getElementById("player4"));
 player2.posX = 100;
 player2.posY = 580;
+player3.posX = 50;
+player3.posY = 580;
+player4.posX = 50;
+player4.posY = 620;
 var popup = new Popup();
 player1.active = true;
 player1.meeple.style.top = player1.posY + "px";
 player1.meeple.style.left = player1.posX + "px";
 player2.meeple.style.top = player2.posY + "px";
 player2.meeple.style.left = player2.posX + "px";
-
+player3.meeple.style.top = player3.posY + "px";
+player3.meeple.style.left = player3.posX + "px";
+player4.meeple.style.top = player4.posY + "px";
+player4.meeple.style.left = player4.posX + "px";
 
 window.onload = function (){
-    var diceButton = document.getElementById("dice");
+    var diceButton = document.getElementById("diceButton");
     diceButton.onclick = function () {
         document.getElementById("diceImage").style.display = "inline-block";
         var diceResult = dice.roll();
