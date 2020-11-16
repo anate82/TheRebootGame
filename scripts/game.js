@@ -94,22 +94,21 @@ calculan el movimiento de la ficha en las cuatro direcciones en el tablero.
         this.posX -= 160.8;
         this.meeple.style.left = this.posX + "px";
     }
-    this.moveTwoPosition = function (){
+    this.moveTwoPosition = function () {
         this.move(2);
     }
-    this.moveTwoBack = function (){
+    this.moveTwoBack = function () {
         this.direction = -1;
         this.move(2);
     }
-    this.resetGame = function (){
+    this.resetGame = function () {
         this.direction = -1;
         this.move (23);
     }
-    this.moveFivePosition = function (){
+    this.moveFivePosition = function () {
         this.move (5);
     }
-
-
+        
     this.runEvent = function (cell) {
         switch(cell) {
             case 6:
@@ -126,6 +125,16 @@ calculan el movimiento de la ficha en las cuatro direcciones en el tablero.
             case 18:this.moveFivePosition ();
                 alert("Mueve 5 posiciones")
                     break; 
+        }
+    }
+    this.changePlayer= function () {
+        if(player1.active === true){
+            player1.active = false;
+            player2.active = true;
+        }
+        else if(player2.active === true){
+            player2.active = false;
+            player1.active = true;
         }
     }
 };
@@ -162,7 +171,6 @@ var Board = function () {
 
 function moveOnBoard(){
     if (player1.cell >= 7 && player1.cell < 12 || player1.cell >= 25 && player1.cell < 28 || player1.cell >= 35 && player1.cell < 36 ) {
-      
         player1.moveUp();
     } else if (player1.cell >=12 && player1.cell < 17 || player1.cell >= 28 && player1.cell < 31 || player1.cell === 36){ 
         player1.moveLeft();
@@ -231,30 +239,29 @@ function moveDice(dice,diceResult){
     },350);
 }
 
-
 var dice = new Dice();
 var player1 = new Player("player1");
+var player2 = new Player("player2");
 var popup = new Popup();
 player1.meeple.style.top = player1.posY + "px";
 player1.meeple.style.left = player1.posX + "px";
-
-
-
+player2.meeple.style.top = player2.posY + "px";
+player2.meeple.style.left = player2.posX;  
 
 window.onload = function (){
     var diceButton = document.getElementById("dice");
     diceButton.onclick = function () {
         var diceResult = dice.roll();
         moveDice(dice, diceResult);
-        popup.show();
         
+        popup.show();   
     }
         document.getElementsByClassName("popup-close")[0].onclick = function () {
             popup.close();
         }
-        document.getElementById("btn-popup-close").addEventListener("click", function (){
+        document.getElementById("btn-popup-close").addEventListener("click", function () {
             popup.close();
     });
- 
+    player.changePlayer()
 }
 

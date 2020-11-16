@@ -42,6 +42,14 @@ body {
     height: 30px;
 }
 
+#player2 {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-left: 100px;
+
+}
+
 thead {
     padding-bottom: 100px;
    
