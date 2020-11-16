@@ -1,5 +1,9 @@
 body {
-    background-image: url("./assets/images/bodybg.png");
+    
+    background-image: url("/assets/images/bodybg.png");
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
     background-color: #1f2833;
     font-family: Arial, Helvetica, sans-serif;
     font-style: normal;
@@ -8,10 +12,12 @@ body {
 }
 
 #main{
+    
     position: relative;
     width: 1000px;
     height: 650px;
 }
+
 #board {
     width: 100%;
     height: 100%;
@@ -27,13 +33,27 @@ body {
 }
 
 #showDice {
-    width: 50px;
-    height: 50px;
+    padding-bottom: 10px;
+}
+#diceButton{
+    background: #0fc5b8;
+    color: white;
+    text-decoration: none;
+    padding: 6px 10px;
+    margin: auto;
+    display: block;
+    width: 50%;
 }
 
 #diceImage {
-    width: 100%;
-    height: 100%;
+    display: none;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    vertical-align: center;
+    top: 300px;
+    left: 360px;
+
 }
 
 #player1 {
@@ -46,13 +66,36 @@ body {
     position: absolute;
     width: 30px;
     height: 30px;
+<<<<<<< HEAD
     border-left: 100px;
 
 }
 
+=======
+}
+#player3 {
+    position: absolute;
+    display: none;
+    width: 30px;
+    height: 30px;
+}
+#player4 {
+    position: absolute;
+     display: none;
+    width: 30px;
+    height: 30px;
+}
+>>>>>>> 05596345c8d7e6f9ddf7381b9f49bd7d880f6baf
 thead {
-    padding-bottom: 100px;
-   
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    /*background-image: url("/assets/images/title.png");
+    background-repeat: no-repeat;
+    padding-bottom: 100px;  */
 }
 
 #board tr:nth-child(3) td:nth-child(3) {
@@ -62,6 +105,69 @@ thead {
 #board tr:nth-child(6) td:nth-child(1) {
     background-color: #00a1c9;
 }
+#board tr:nth-child(6) td:nth-child(2) {
+    background-image:url("/assets/images/c2.png");
+}
+#board tr:nth-child(6) td:nth-child(3) {
+    background-image:url("/assets/images/c3.png");
+}
+#board tr:nth-child(6) td:nth-child(4) {
+    background-image:url("/assets/images/c4.png");
+}
+
+#board tr:nth-child(6) td:nth-child(5) {
+    background-image:url("/assets/images/c5.png");
+}
+#board tr:nth-child(5) td:nth-child(6) {
+    background-image:url("/assets/images/c7.png");
+}
+#board tr:nth-child(4) td:nth-child(6) {
+    background-image:url("/assets/images/c8.png");
+}
+#board tr:nth-child(2) td:nth-child(6) {
+    background-image:url("/assets/images/c10.png");
+}
+#board tr:nth-child(1) td:nth-child(6) {
+    background-image:url("/assets/images/c11.png");
+}
+#board tr:nth-child(1) td:nth-child(4) {
+    background-image:url("/assets/images/c13.png");
+}
+#board tr:nth-child(1) td:nth-child(3) {
+    background-image:url("/assets/images/c14.png");
+}
+#board tr:nth-child(1) td:nth-child(2) {
+    background-image:url("/assets/images/c15.png");
+}
+#board tr:nth-child(2) td:nth-child(1) {
+    background-image:url("/assets/images/c17.png");
+}
+
+#board tr:nth-child(4) td:nth-child(1) {
+    background-image:url("/assets/images/c19.png");
+}
+#board tr:nth-child(5) td:nth-child(1) {
+    background-image:url("/assets/images/c20.png");
+}
+#board tr:nth-child(5) td:nth-child(2) {
+    background-image:url("/assets/images/c21.png");
+}
+#board tr:nth-child(5) td:nth-child(3) {
+    background-image:url("/assets/images/c22.png");
+}
+#board tr:nth-child(5) td:nth-child(4) {
+    background-image:url("/assets/images/c23.png");
+}
+#board tr:nth-child(4) td:nth-child(5) {
+    background-image:url("/assets/images/c25.png");
+}
+#board tr:nth-child(3) td:nth-child(5) {
+    background-image:url("/assets/images/c26.png");
+}
+#board tr:nth-child(2) td:nth-child(4) {
+    background-image:url("/assets/images/c28.png");
+}
+
 
 td {
     background-color: #1f2833;
@@ -84,14 +190,14 @@ td {
     text-align: center;
     width: 100%;
     max-width: 300px;
-    background: white;
+    background: black;
     margin: 10% auto;
     padding: 20px;
     position: relative;
 }
  
 .popup button {
-    background: salmon;
+    background: #66fcf1;
     color: white;
     text-decoration: none;
     padding: 6px 10px;
@@ -101,11 +207,21 @@ td {
 }
  
 .popup button:hover {
-    background: palevioletred;
+    background: #45a29e;
     transition: all 0.2s;
 }
+
+#popup-content > h3{
+    color: black;
+    font-weight: bold;
+}
+
+#inputPopUp{
+    visibility: hidden;
+    z-index: 3;
+} 
  
-.popup-close {
+#popup-close {
     position: absolute;
     top: 5px;
     right: 15px;

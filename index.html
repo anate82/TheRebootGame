@@ -6,28 +6,38 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>The Reboot Game</title>
     <link rel="stylesheet" href="styles/game.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
   </head>
   <body>
-
     <section id="main">
-      <button type="button" id="dice">Tira el dado!!</button>
+      <button type="button" id="diceButton">Tira el dado!!</button>
       <!--éste div nos puede servir para meter el esquema del dado-->
       <div id="showDice">
         <img src="assets/images/d1.png" id="diceImage" alt="Dice face 1"/>
       </div>
       <div class="popup-wrapper">
         <div class="popup">
-            <div class="popup-close">x</div>
-            <div class="popup-content">
+            <div id="popup-close">x</div>
+
+            <div id="popup-content">
                 <h3>The RebootGame</h3>
                 <p id="messagePopUp">Gira el dado</p>
+                <input id="inputPopUp" type="text" value="Reboot"/>
+                
                 <button type="button" id="btn-popup-close">Cerrar</button>
             </div>
         </div>
     </div>
       <section id="canvas">
+<<<<<<< HEAD
         <img id="player1" src="assets/images/fichaVerde.PNG">
         <img id="player2" src="assets/images/fichaNegra.png">
+=======
+        <img id="player1" src="/assets/images/green.png">
+        <img id="player2" src="/assets/images/blue.png">
+        <img id="player3" src="/assets/images/pink.png">
+        <img id="player4" src="/assets/images/yellow.png">
+>>>>>>> 05596345c8d7e6f9ddf7381b9f49bd7d880f6baf
         <table id="board">
           <thead>THE REBOOT GAME</thead>
           <tbody>
