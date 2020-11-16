@@ -1,4 +1,5 @@
 body {
+    
     background-image: url("/assets/images/bodybg.png");
     background-attachment: fixed;
     width: 100%;
@@ -11,6 +12,7 @@ body {
 }
 
 #main{
+    
     position: relative;
     width: 1000px;
     height: 650px;
@@ -52,7 +54,18 @@ body {
     width: 30px;
     height: 30px;
 }
-
+#player3 {
+    position: absolute;
+    display: none;
+    width: 30px;
+    height: 30px;
+}
+#player4 {
+    position: absolute;
+     display: none;
+    width: 30px;
+    height: 30px;
+}
 thead {
     background-image: url("/assets/images/title.png");
     background-repeat: no-repeat;

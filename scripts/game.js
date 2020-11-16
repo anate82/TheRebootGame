@@ -139,15 +139,21 @@ perder posiciones*/
                     popup.show();
                     this.resetGame (player);
                     break;
-            case 18:                    popup.message("Nestor te ayuda con tus dudas y avanzas 5 posiciones!!");
+            case 18:popup.message("Nestor te ayuda con tus dudas y avanzas 5 posiciones!!");
                     popup.show();
                     this.moveFivePosition (player);
                     break; 
+            case 27:popup.message("Llegas tarde..... Te llevas un PUNISHER: Pierdes un turno por listo :(");//pierde un turno, pendiente de finalizar 
+                    popup.show();
+                    player.active = true;
+                    checkTurn(player);
+                    break;
 //******* Revisar pq el popup se cierra cuando se inserta la información en el input ****************/
-    /*        case 2:
+      /*    case 2:
             case 3:
             case 4:
-            case 5:popup.message("Responde a la pregunta, Rebooter: Piedra, papel, tijera, lagarto o ....");
+            case 5:
+                popup.message("Responde a la pregunta, Rebooter: Piedra, papel, tijera, lagarto o ....");
                    document.getElementById("inputPopUp").style.visibility = "visible";
                    var botonConfirmar = document.getElementById("btn-popup-close");
                    botonConfirmar.innerText = "Confirmar";
@@ -285,6 +291,15 @@ function moveDice(dice,diceResult ,player){
     },350);
     document.getElementById("inputPopUp").style.visibility = "hidden";
 }
+function checkTurn (player){
+    if (player1.active){
+        player1.active = false;
+        player2.active = true; 
+    } else {
+        player1.active = true;
+        player2.active = false; 
+    }
+}
 
 /*BUCLE PRINCIPAL DEL JUEGO*/
 
@@ -307,18 +322,10 @@ window.onload = function (){
         document.getElementById("diceImage").style.display = "inline-block";
         var diceResult = dice.roll();
         if (player1.active) {
-
             moveDice(dice, diceResult, player1);
-            player1.active = false;
-            player2.active = true; 
-
-        } else if (player2.active){
-
+        } else if (player2.active) {
             moveDice(dice, diceResult, player2);
-            player1.active = true;
-            player2.active = false; 
         }
-                  
     }
     document.getElementsByClassName("popup-close")[0].onclick = function () {
         console.log("cierraPopup");
