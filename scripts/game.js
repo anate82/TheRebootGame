@@ -336,6 +336,7 @@ window.onload = function (){
             moveDice(dice, diceResult, player2);
         }
     }
+    
     document.getElementsByClassName("popup-close")[0].onclick = function () {
         console.log("cierraPopup");
         popup.close();
