@@ -39,7 +39,7 @@ nombre del jugador, posicion en el tablero, contador interior
 de movimientos, estado interior de actividad y color. Características como
 el nombre ó el color, se recogen por entrada de teclado.
 */
-var Player = function (player) {
+var Player = function (meeple) {
     this.name = "";
     this.posX = 100;   
     this.posY = 620;
@@ -48,29 +48,31 @@ var Player = function (player) {
     this.direction = 1;
    //this.color = "";--->tba
     this.active = false;
-    this.meeple = document.getElementById(player);
+    this.meeple = meeple;
 
-    this.move = function(diceRoll) {
+    this.move = function(diceRoll, player) {
         var timerId = setInterval((function () {
             if (diceRoll === 0){
                 clearInterval(timerId);
-                player1.direction = 1;
-                this.runEvent(this.cell);
-                if(player1.cell === 36) {
+                player.direction = 1;
+                this.runEvent(this.cell, player);
+                if(player.cell === 36) {
                     alert("You win");
                 }
                 return;
             }
             diceRoll--;
-            if (diceRoll > 0 && player1.cell === 36) {
-                player1.direction = -1;
+            if (diceRoll > 0 && player.cell === 36) {
+                player.direction = -1;
             } 
-            if (player1.direction === -1) {
-                player1.cell--;
-                moveOnReverse();
+            if (player.direction === -1) {
+                player.cell--;
+                moveOnReverse(player);
+                document.getElementById("diceImage").style.display = "none";
             } else {
-                player1.cell++;
-                moveOnBoard();
+                player.cell++;
+                moveOnBoard(player);
+                document.getElementById("diceImage").style.display = "none";
             }
         }).bind(this),1000);
     }
@@ -94,41 +96,74 @@ calculan el movimiento de la ficha en las cuatro direcciones en el tablero.
         this.posX -= 160.8;
         this.meeple.style.left = this.posX + "px";
     }
-    this.moveTwoPosition = function (){
-        this.move(2);
+    this.moveTwoPosition = function (player) {
+        this.move(2,player);
     }
-    this.moveTwoBack = function (){
+    this.moveTwoBack = function (player) {
         this.direction = -1;
-        this.move(2);
+        this.move(2,player);
     }
-    this.resetGame = function (){
+    this.resetGame = function (player) {
         this.direction = -1;
-        this.move (23);
+        this.move (23,player);
     }
-    this.moveFivePosition = function (){
-        this.move (5);
+    this.moveFivePosition = function (player) {
+        this.move (5,player);
     }
 
 
-    this.runEvent = function (cell) {
+    this.runEvent = function (cell,player) {
         switch(cell) {
             case 6:
-            case 12:this.moveTwoPosition ();
-                alert("Mueve 2 posiciones");
+            case 12:popup.message("Has estado estudiando mucho, avanzas 2 posiciones para que te veas los recursos adicionales");
+                    popup.show();
+                    this.moveTwoPosition (player);
                     break;
             case 9:
-            case 16: this.moveTwoBack ();
-                alert("Mueve 2 posiciones hacía atrás");
-                 break;
-            case 24:this.resetGame ();
-                alert("Ohhh...vuelves a empezar");
+            case 16:popup.message("¡¡¡No has terminado el lab!!!, retrocede 2 posiciones para que te veas las slides");
+                    popup.show();
+                    this.moveTwoBack (player);
                     break;
-            case 18:this.moveFivePosition ();
-                alert("Mueve 5 posiciones")
+            case 24:
+            case 34:popup.message("No has entregado el proyecto a tiempo!!!! Ohhh...vuelves a empezar el bootcamp");
+                    popup.show();
+                    this.resetGame (player);
+                    break;
+            case 18:                    popup.message("Nestor te ayuda con tus dudas y avanzas 5 posiciones");
+                    popup.show();
+                    this.moveFivePosition (player);
                     break; 
+//******* Revisar pq el popup se cierra cuando se inserta la información en el input ****************/
+    /*        case 2:
+            case 3:
+            case 4:
+            case 5:popup.message("Responde a la pregunta: Piedra, papel, lagarto o ....");
+                   document.getElementById("inputPopUp").style.visibility = "visible";
+                   var botonConfirmar = document.getElementById("btn-popup-close");
+                   botonConfirmar.innerText = "Confirmar";
+                   popup.show();
+                   botonConfirmar.addEventListener("click", function () {
+                       if (document.getElementById("inputPopUp").value === "Spock") {
+                            popup.message("Correcto!!!! Avanzas dos posiciones");
+                            document.getElementById("inputPopUp").style.visibility = "hidden";
+                            popup.show();
+                            this.moveTwoPosition (player);
+                            document.getElementById("btn-popup-close").innerText = "Cerrar";
+
+                        } else {
+                            popup.message("Ohhhhh!!!! Me había olvidado de que las personas normales tienen límites.... Retrocedes dos posiciones");
+                            document.getElementById("inputPopUp").style.visibility = "hidden";
+                            popup.show();
+                            this.moveTwoBack (player);
+                            document.getElementById("btn-popup-close").innerText = "Cerrar";
+                        }
+                   }.bind(this));
+                   break;*/
         }
     }
 };
+
+
 
 var Popup = function (){
     this.popup = document.querySelector(".popup-wrapper");
@@ -147,7 +182,7 @@ var Popup = function (){
 }
 /*
 OBJETO BOARD: genera el tablero de juego con un array de 6x6, un dado y un jugador.
-*/
+
 var Board = function () {
     this.matrix = [];  
     this.generateBoard = function () {
@@ -158,102 +193,120 @@ var Board = function () {
             }
         }
     }
-};
+};*/
 
-function moveOnBoard(){
-    if (player1.cell >= 7 && player1.cell < 12 || player1.cell >= 25 && player1.cell < 28 || player1.cell >= 35 && player1.cell < 36 ) {
-      
-        player1.moveUp();
-    } else if (player1.cell >=12 && player1.cell < 17 || player1.cell >= 28 && player1.cell < 31 || player1.cell === 36){ 
-        player1.moveLeft();
-    } else if (player1.cell >= 17 && player1.cell < 21 || player1.cell >= 31 && player1.cell < 33){
-        player1.moveDown();
+function moveOnBoard(player) {
+    if (player.cell >= 7 && player.cell < 12 || player.cell >= 25 && player.cell < 28 || player.cell >= 35 && player.cell < 36 ) {
+        player.moveUp(player);
+    } else if (player.cell >=12 && player.cell < 17 || player.cell >= 28 && player.cell < 31 || player.cell === 36) { 
+        player.moveLeft(player);
+    } else if (player.cell >= 17 && player.cell < 21 || player.cell >= 31 && player.cell < 33) {
+        player.moveDown(player);
     } else {
-        player1.moveRight();
+        player.moveRight(player);
     }
 }
 
-function moveOnReverse(){
-    if (player1.cell <= 33 && player1.cell > 31 ||player1.cell <= 23 && player1.cell > 19 || player1.cell <= 5 && player1.cell > 0){
-        console.log(player1.cell);
-        player1.moveLeft();
-    } else if (player1.cell <= 31 && player1.cell > 29 || player1.cell <= 19 && player1.cell > 15){
-        console.log(player1.cell);
-        player1.moveUp();
-    } else if (player1.cell === 35 || player1.cell <= 29 && player1.cell > 26 || player1.cell <= 15  && player1.cell > 10) {
-        console.log(player1.cell);
-        player1.moveRight();
-    } else if (player1.cell === 34 || player1.cell === 33 || player1.cell <= 26 && player1.cell > 23 || player1.cell <= 10 && player1.cell > 5) {
-        console.log(player1.cell);
-        player1.moveDown();
+function moveOnReverse(player) {
+    if (player.cell <= 33 && player.cell > 31 ||player.cell <= 23 && player.cell > 19 || player.cell <= 5 && player.cell > 0) {
+        player.moveLeft(player);
+    } else if (player.cell <= 31 && player.cell > 29 || player.cell <= 19 && player.cell > 15) {
+        player.moveUp(player);
+    } else if (player.cell === 35 || player.cell <= 29 && player.cell > 26 || player.cell <= 15  && player.cell > 10) {
+        player.moveRight(player);
+    } else if (player.cell === 34 || player.cell === 33 || player.cell <= 26 && player.cell > 23 || player.cell <= 10 && player.cell > 5) {
+        player.moveDown(player);
     }
 }
 
-function moveDice(dice,diceResult){
+function moveDice(dice,diceResult ,player){
     var cont = 0;
     var timerIdDice = setInterval (function () {
         cont++;
         switch (Math.floor((Math.random()*6)-1)) {
-            case 1: document.getElementById("diceImage").src =dice.side1;
+            case 1: document.getElementById("diceImage").src = dice.side1;
                     break;
-            case 2: document.getElementById("diceImage").src =dice.side2;
+            case 2: document.getElementById("diceImage").src = dice.side2;
                     break;
-            case 3: document.getElementById("diceImage").src =dice.side3;
+            case 3: document.getElementById("diceImage").src = dice.side3;
                     break;
-            case 4: document.getElementById("diceImage").src =dice.side4;
+            case 4: document.getElementById("diceImage").src = dice.side4;
                     break;
-            case 5: document.getElementById("diceImage").src =dice.side5;
+            case 5: document.getElementById("diceImage").src = dice.side5;
                     break;
-            case 6: document.getElementById("diceImage").src =dice.side6;
+            case 6: document.getElementById("diceImage").src = dice.side6;
                     break;
         }
         if (cont === 15) {
             clearInterval(timerIdDice);
             switch (diceResult) {
-                case 1: document.getElementById("diceImage").src =dice.side1;
+                case 1: document.getElementById("diceImage").src = dice.side1;
                         break;
-                case 2: document.getElementById("diceImage").src =dice.side2;
+                case 2: document.getElementById("diceImage").src = dice.side2;
                         break;
-                case 3: document.getElementById("diceImage").src =dice.side3;
+                case 3: document.getElementById("diceImage").src = dice.side3;
                         break;
                 case 4: document.getElementById("diceImage").src =dice.side4;
                         break;
-                case 5: document.getElementById("diceImage").src =dice.side5;
+                case 5: document.getElementById("diceImage").src = dice.side5;
                         break;
-                case 6: document.getElementById("diceImage").src =dice.side6;
+                case 6: document.getElementById("diceImage").src = dice.side6;
                         break;
             }
-
-            alert("Mueves "+ diceResult +" posiciones!!!!");
-            player1.move(diceResult);
+            if (diceResult === 1) {
+                popup.message("Mueves "+ diceResult +" posicion!!!!");
+                popup.show();
+            } else {
+                popup.message("Mueves "+ diceResult +" posiciones!!!!");
+                popup.show();
+            }
+            player.move(diceResult,player);
             return;
         }
     },350);
+    document.getElementById("inputPopUp").style.visibility = "hidden";
 }
 
 
 var dice = new Dice();
-var player1 = new Player("player1");
+var player1 = new Player(document.getElementById("player1"));
+var player2 = new Player(document.getElementById("player2"));
+player2.posX = 100;
+player2.posY = 580;
 var popup = new Popup();
+player1.active = true;
 player1.meeple.style.top = player1.posY + "px";
 player1.meeple.style.left = player1.posX + "px";
-
-
+player2.meeple.style.top = player2.posY + "px";
+player2.meeple.style.left = player2.posX + "px";
 
 
 window.onload = function (){
     var diceButton = document.getElementById("dice");
     diceButton.onclick = function () {
+        document.getElementById("diceImage").style.display = "inline-block";
         var diceResult = dice.roll();
-        moveDice(dice, diceResult);
-        popup.show();
-        
-    }
-        document.getElementsByClassName("popup-close")[0].onclick = function () {
-            popup.close();
+        if (player1.active) {
+
+            moveDice(dice, diceResult, player1);
+            player1.active = false;
+            player2.active = true; 
+
+        } else if (player2.active){
+
+            moveDice(dice, diceResult, player2);
+            player1.active = true;
+            player2.active = false; 
         }
-        document.getElementById("btn-popup-close").addEventListener("click", function (){
-            popup.close();
+                  
+    }
+    document.getElementsByClassName("popup-close")[0].onclick = function () {
+        console.log("cierraPopup");
+        popup.close();
+    }
+    document.getElementById("btn-popup-close").addEventListener("click", function (){
+        console.log("cierrraBoton");
+        popup.close();
     });
  
 }
