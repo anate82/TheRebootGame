@@ -85,11 +85,11 @@ calculan el movimiento de la ficha en las cuatro direcciones en el tablero.
         this.meeple.style.left = this.posX + "px";
     }
     this.moveUp = function () {
-        this.posY -= 105;
+        this.posY -= 107;
         this.meeple.style.top = this.posY + "px";
     }
     this.moveDown = function () {
-        this.posY += 105;
+        this.posY += 107;
         this.meeple.style.top = this.posY + "px";
     }
     this.moveLeft = function () {
