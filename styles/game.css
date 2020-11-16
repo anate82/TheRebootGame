@@ -1,5 +1,8 @@
 body {
-    background-image: url("./assets/images/bodybg.png");
+    background-image: url("/assets/images/bodybg.png");
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
     background-color: #1f2833;
     font-family: Arial, Helvetica, sans-serif;
     font-style: normal;
@@ -12,6 +15,7 @@ body {
     width: 1000px;
     height: 650px;
 }
+
 #board {
     width: 100%;
     height: 100%;
@@ -42,6 +46,7 @@ body {
     width: 30px;
     height: 30px;
 }
+
 #player2 {
     position: absolute;
     width: 30px;
@@ -49,8 +54,9 @@ body {
 }
 
 thead {
-    padding-bottom: 100px;
-   
+    background-image: url("/assets/images/title.png");
+    background-repeat: no-repeat;
+    padding-bottom: 100px;  
 }
 
 #board tr:nth-child(3) td:nth-child(3) {
@@ -102,6 +108,7 @@ td {
     background: #45a29e;
     transition: all 0.2s;
 }
+
 .popup-content > h3{
     color: black;
     font-weight: bold;
