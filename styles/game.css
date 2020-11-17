@@ -161,6 +161,24 @@ thead {
     background-image:url("/assets/images/c31.png");
 }
 
+#board tr:nth-child(4) td:nth-child(2) {
+    background-image:url("/assets/images/c32.png");
+}
+
+#board tr:nth-child(4) td:nth-child(3) {
+    background-image:url("/assets/images/c33.png");
+}
+
+#board tr:nth-child(3) td:nth-child(4) {
+    background-image:url("/assets/images/c35.png");
+}
+
+#board tr:nth-child(3) td:nth-child(3) {
+    background-image:url("/assets/images/woot.png");
+}
+
+
+
 
 td {
     background-color: #1f2833;

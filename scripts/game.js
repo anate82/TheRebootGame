@@ -162,9 +162,15 @@ var Game = function (){
                     popup.show();
                     this.startAgain (player);
                     break;
-            case 18:popup.message("Nestor te ayuda con tus dudas y avanzas 5 posiciones!!");
+            case 17:popup.message("Nestor te ayuda con tus dudas y avanzas 5 posiciones!!");
                     popup.show();
                     this.moveFivePosition (player);
+                    break;
+            case 28:popup.message("El hijo de un programador le pregunta a su padre: Papá, ¿Porque el sol nase por el este y se pone por el oeste?  El padre responde: Funciona? No se toca");
+                    popup.show();
+                    break;
+            case 31:popup.message("Programador: Persona que resuelve un problema que tu no sabes que tienes, en una forma que tu no entiendes.");
+                    popup.show();
                     break; 
             case 4:
             case 27:popup.message("Llegas tarde..... Te llevas un PUNISHER: Pierdes un turno por listo :(");
@@ -173,24 +179,32 @@ var Game = function (){
                     this.active = false;
                     break;
 //******* Revisar pq el popup se cierra cuando se inserta la información en el input ****************/
-            case 2:
             case 3:
-            case 5:popupQuestion.messageQuestion("Responde a la pregunta, Rebooter: Piedra, papel, tijera, lagarto o ....");
+            case 20:popupQuestion.messageQuestion("Responde a la pregunta, Rebooter: Piedra, papel, tijera, lagarto o ....");
                    document.getElementById("inputPopUp").style.visibility = "visible";
+                   document.getElementById("btn-popup-confirmar").style.visibility = "visible";
                    var botonConfirmar = document.getElementById("btn-popup-confirmar");
                    popupQuestion.show();
                    botonConfirmar.addEventListener("click", function (){
                         if (document.getElementById("inputPopUp").value === "Spock") {
+                            entra = true;
                             popupQuestion.messageQuestion("Correctisimo!!!! Avanzas dos posiciones");
                             document.getElementById("inputPopUp").style.visibility = "hidden";
+                            document.getElementById("btn-popup-confirmar").style.visibility = "hidden";
+
                             popupQuestion.show();
-                            this.moveTwoPosition (player);            
+                            this.moveTwoPosition (player);          
                         } else {
-                            popupQuestion.message("Ohhhhh!!!! Me había olvidado de que las personas normales tienen límites.... Retrocedes dos posiciones");
+                            popupQuestion.messageQuestion("Ohhhhh!!!! Me había olvidado de que las personas normales tienen límites.... Retrocedes dos posiciones");
                             document.getElementById("inputPopUp").style.visibility = "hidden";
+                            document.getElementById("btn-popup-confirmar").style.visibility = "hidden";
                             popupQuestion.show();
                             this.moveTwoBack (player);
                         }
+                        
+                    }.bind (this));
+                    document.getElementById("popup-close-question").addEventListener("click", function () {
+                        popupQuestion.close();
                     });
                    break;
         }
