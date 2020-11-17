@@ -35,30 +35,6 @@ var Dice = function () {
         side5 : "assets/images/d5.png",
         side6 : "assets/images/d6.png"
     };
-
-    this.animateDice = function (diceResult) {
-        var cont = 15;
-        var timerIdDice = setInterval (function () {
-            snd.play();
-            cont--;
-            let random = Math.floor((Math.random()*6)+1);
-            document.getElementById("diceImage").src = this.diceFaces['side'+random];
-            if (cont === 0) {
-                clearInterval(timerIdDice);
-                document.getElementById("diceImage").src = this.diceFaces['side'+diceResult];
-                if (diceResult === 1) {
-                    popup.message("Mueves "+ diceResult +" posicion!!!!");
-                    popup.show();
-                } else {
-                    popup.message("Mueves "+ diceResult +" posiciones!!!!");
-                    popup.show();
-                }
-                snd.pause();
-                //game.move(player,diceResult);
-                return;
-            }
-        }, 550);
-    }
 };
 
 /* 
@@ -230,8 +206,7 @@ var Game = function (){
 //******* Revisar pq el popup se cierra cuando se inserta la información en el input ****************/
             case 3:
             case 20:popupQuestion.messageQuestion("Responde a la pregunta, Rebooter: Piedra, papel, tijera, lagarto o ....");
-                  popupQuestion.show();
-                  
+                   popupQuestion.show();
                    break;
         }
     }
@@ -260,38 +235,6 @@ var Game = function (){
         }
     }
 }
-/*
-function checkTurn (){
-    if (player1.active){
-        console.log("player1 active false");
-        player1.active = false;
-        player2.active = true; 
-    } else {
-        console.log("player1 active true");
-        player1.active = true;
-        player2.active = false; 
-    }
-}
-
-function answerPopup(player){
-    if (document.getElementById("inputPopUp").value === "Spock") {
-
-        popup.message("Correctisimo!!!! Avanzas dos posiciones");
-        document.getElementById("inputPopUp").style.visibility = "hidden";
-        popup.show();
-        player.moveTwoPosition (player);
-        document.getElementById("btn-popup-close").innerText = "Cerrar";
-
-    } else {
-
-        popup.message("Ohhhhh!!!! Me había olvidado de que las personas normales tienen límites.... Retrocedes dos posiciones");
-        document.getElementById("inputPopUp").style.visibility = "hidden";
-        popup.show();
-        player.moveTwoBack (player);
-        document.getElementById("btn-popup-close").innerText = "Cerrar";
-
-    }
-}*/
 
 /*OBJETO POPUP: define un objeto de tipo ventana emergente*/
 
