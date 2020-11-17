@@ -43,7 +43,7 @@ el nombre ó el color, se recogen por entrada de teclado.
 */
 
 var Player = function (meeple) {
-    this.name = "";
+   // this.name = "";
     this.posX = 100;   
     this.posY = 620;
     this.cell = 1;
@@ -52,38 +52,6 @@ var Player = function (meeple) {
    //this.color = "";--->tba
     this.active = false;
     this.meeple = meeple;
-
-    this.move = function(diceRoll) {
-        var snd = new Audio ("/assets/music/Astronomia.mp3");
-        var timerId = setInterval((function () {
-            if (diceRoll === 0){
-                clearInterval(timerId);
-                snd.pause();
-                this.direction = 1;
-                this.runEvent(this.cell);
-                if(this.cell === 36) {
-                    popup.message("Felicidades has entregado el proyecto!!! te has ganado unas buenas vacaciones");
-                    popup.show();
-                }
-                return;
-            }
-            diceRoll--;
-            if (diceRoll > 0 && this.cell === 36) {
-                this.direction = -1;
-            } 
-            if (this.direction === -1) {
-                snd.play();
-                this.cell--;
-                moveOnReverse(this);
-                document.getElementById("diceImage").style.display = "none";
-            } else {
-                //snd.pause();
-                this.cell++;
-                moveOnBoard(this);
-                document.getElementById("diceImage").style.display = "none";
-            }
-        }).bind(this),1000);
-    }
     /*
     FUNCIONES DE MOVIMIENTO: funciones propias del objeto Player que
     calculan el movimiento de la ficha en las cuatro direcciones en el tablero
@@ -105,65 +73,154 @@ var Player = function (meeple) {
         this.posX -= 160.8;
         this.meeple.style.left = this.posX + "px";
     }
-    this.moveTwoPosition = function () {
-        this.move(2);
+};
+
+
+//clase constructora Game
+
+var Game = function (){
+    this.dice = new Dice();
+    this.activePlayer = 2;
+
+    this.changeActivePlayer = function (){
+        if (this.activePlayer === 1){
+            this.activePlayer = 2;
+        } else {
+            this.activePlayer = 1;
+        }
     }
-    this.moveTwoBack = function () {
-        this.direction = -1;
-        this.move(2);
+
+    this.rollDice = function() {
+        document.getElementById("diceImage").style.display = "inline-block";
+        return this.dice.roll();//genera un valor aleatorio que será las posiciones a mover la ficha
     }
-    this.resetGame = function (cell) {
-        this.direction = -1;
-        this.move (cell);
+
+
+    this.move = function(player,diceRoll) {
+        var snd = new Audio ("/assets/music/Astronomia.mp3");
+        var timerId = setInterval((function () {
+            if (diceRoll === 0){
+                clearInterval(timerId);
+                snd.pause();
+                player.direction = 1;
+                this.runEvent(player);
+                if(player.cell === 36) {
+                    popup.message("Felicidades has entregado el proyecto!!! te has ganado unas buenas vacaciones");
+                    popup.show();
+                }
+                return;
+            }
+            diceRoll--;
+            if (diceRoll > 0 && player.cell === 36) {
+                player.direction = -1;
+            } 
+            if (player.direction === -1) {
+                snd.play();
+                player.cell--;
+                moveOnReverse(player);
+                document.getElementById("diceImage").style.display = "none";
+            } else {
+                player.cell++;
+                moveOnBoard(player);
+                document.getElementById("diceImage").style.display = "none";
+            }
+        }).bind(this),1000);
     }
-    this.moveFivePosition = function () {
-        this.move (5);
+    this.moveTwoPosition = function (player) {
+        this.move(player,2);
+    }
+    this.moveTwoBack = function (player) {
+        player.direction = -1;
+        this.move(player,2);
+    }
+    this.startAgain = function (player) {
+        player.direction = -1;
+        this.move (player,player.cell-1);
+    }
+    this.moveFivePosition = function (player) {
+        this.move (player,5);
     }
     /*FUNCIÓN RUNEVENT: define las casillas en las cuales se producirá
     un evento en el tablero. En base a la casilla en la que caiga el
     jugador, se llamará a una función u otra, y se pueden avanzar ó 
     perder posiciones*/
-    this.runEvent = function (cell) {
-        switch(cell) {
+    this.runEvent = function (player) {
+        switch(player.cell) {
             case 6:
-            case 12:popup.message("Has estado estudiando mucho, avanzas 2 posiciones para que te veas los recursos adicionales");
+            case 12:
+                    popup.message("Has estado estudiando mucho, avanzas 2 posiciones para que te veas los recursos adicionales");
                     popup.show();
-                    this.moveTwoPosition ();
+                    this.moveTwoPosition (player);
                     break;
             case 9:
             case 16:popup.message("¡¡¡No has terminado el lab!!!, retrocede 2 posiciones para que te veas las slides");
                     popup.show();
-                    this.moveTwoBack ();
+                    this.moveTwoBack (player);
                     break;
             case 24:
             case 34:popup.message("No has entregado el proyecto a tiempo!!!! Ohhh...vuelves a empezar el bootcamp");
                     popup.show();
-                    this.resetGame (cell-1);
+                    this.startAgain (player);
                     break;
             case 18:popup.message("Nestor te ayuda con tus dudas y avanzas 5 posiciones!!");
                     popup.show();
-                    this.moveFivePosition ();
+                    this.moveFivePosition (player);
                     break; 
-            
             case 4:
-            case 27:popup.message("Llegas tarde..... Te llevas un PUNISHER: Pierdes un turno por listo :(");//pierde un turno, pendiente de finalizar 
+            case 27:popup.message("Llegas tarde..... Te llevas un PUNISHER: Pierdes un turno por listo :(");
                     popup.show();
                     this.moveCount = 1;
                     this.active = false;
                     break;
 //******* Revisar pq el popup se cierra cuando se inserta la información en el input ****************/
-   /*        case 2:
+            case 2:
             case 3:
-            case 4:
-            case 5:popup.message("Responde a la pregunta, Rebooter: Piedra, papel, tijera, lagarto o ....");
+            case 5:popupQuestion.messageQuestion("Responde a la pregunta, Rebooter: Piedra, papel, tijera, lagarto o ....");
                    document.getElementById("inputPopUp").style.visibility = "visible";
-                   var botonConfirmar = document.getElementById("btn-popup-close");
-                   botonConfirmar.innerText = "Confirmar";
-                   popup.show();
-                   break;*/
+                   var botonConfirmar = document.getElementById("btn-popup-confirmar");
+                   popupQuestion.show();
+                   botonConfirmar.addEventListener("click", function (){
+                        if (document.getElementById("inputPopUp").value === "Spock") {
+                            popupQuestion.messageQuestion("Correctisimo!!!! Avanzas dos posiciones");
+                            document.getElementById("inputPopUp").style.visibility = "hidden";
+                            popupQuestion.show();
+                            this.moveTwoPosition (player);            
+                        } else {
+                            popupQuestion.message("Ohhhhh!!!! Me había olvidado de que las personas normales tienen límites.... Retrocedes dos posiciones");
+                            document.getElementById("inputPopUp").style.visibility = "hidden";
+                            popupQuestion.show();
+                            this.moveTwoBack (player);
+                        }
+                    });
+                   break;
         }
     }
-};
+
+    this.moveOnBoard = function (player){
+        if (player.cell >= 7 && player.cell < 12 || player.cell >= 25 && player.cell < 28 || player.cell >= 35 && player.cell < 36 ) {
+            player.moveUp(player);
+        } else if (player.cell >=12 && player.cell < 17 || player.cell >= 28 && player.cell < 31 || player.cell === 36) { 
+            player.moveLeft(player);
+        } else if (player.cell >= 17 && player.cell < 21 || player.cell >= 31 && player.cell < 33) {
+            player.moveDown(player);
+        } else {
+            player.moveRight(player);
+        }
+    }
+
+    this.moveOnReverse = function () { 
+        if (player.cell <= 33 && player.cell > 31 ||player.cell <= 23 && player.cell > 19 || player.cell <= 5 && player.cell > 0) {
+            player.moveLeft(player);
+        } else if (player.cell <= 31 && player.cell > 29 || player.cell <= 19 && player.cell > 15) {
+            player.moveUp(player);
+        } else if (player.cell === 35 || player.cell <= 29 && player.cell > 26 || player.cell <= 15  && player.cell > 10) {
+            player.moveRight(player);
+        } else if (player.cell === 34 || player.cell === 33 || player.cell <= 26 && player.cell > 23 || player.cell <= 10 && player.cell > 5) {
+            player.moveDown(player);
+        }
+    }
+}
+
 function checkTurn (){
     if (player1.active){
         console.log("player1 active false");
@@ -207,6 +264,20 @@ var Popup = function (){
     }
     this.close = function (){
         this.popup.style.display = "none";
+    }
+}
+
+var PopupQuestion = function (){
+    this.popupQuestion = document.querySelector(".popup-wrapper-question");
+    this.closeQuestion = document.querySelector(".popup-close-question");
+    this.messageQuestion = function (message){
+       document.getElementById("messagePopUpQuestion").innerText = message;
+    }
+    this.show = function (){
+        this.popupQuestion.style.display = 'block';
+    }
+    this.close = function (){
+        this.popupQuestion.style.display = "none";
     }
 }
 
@@ -275,40 +346,49 @@ function moveDice (dice, diceResult, player){
                 popup.show();
             }
             snd.pause();
-            player.move(diceResult);
+            game.move(player,diceResult);
             return;
         }
     }, 550);
     document.getElementById("inputPopUp").style.visibility = "hidden";
 }
 
-function movePlayer(dice, diceResult) {
-    if (!player1.active && player2.moveCount > 0){
+function runTurn(diceResult) {
+   game.changeActivePlayer(); 
+    if (game.activePlayer === 1){
+       game.move(player1,diceResult);
+   } else {
+        game.move(player2,diceResult);
+   }
+   
+   
+    /* if (!player1.active && player2.moveCount > 0){
         player1.active = true;
         player1.moveCount = 0;
         player2.moveCount = 0;
     }
+    
     if (player1.active) {
-        moveDice(dice, diceResult, player1);
+        moveDice(diceResult, player1);
         if (player2.moveCount > 0){
             player2.moveCount--;
         } else {
             checkTurn();
         }
     } else if (player2.active) {
-        moveDice(dice, diceResult, player2);
+        moveDice(diceResult, player2);
         if (player1.moveCount > 0) {
             player1.moveCount--;
         } else {
             checkTurn();
         }
-    }
+    }*/
 }
 
 
 /*BUCLE PRINCIPAL DEL JUEGO*/
 
-var dice = new Dice();
+
 var player1 = new Player(document.getElementById("player1"));
 var player2 = new Player(document.getElementById("player2"));
 var player3 = new Player(document.getElementById("player3"));
@@ -319,7 +399,6 @@ player3.posX = 50;
 player3.posY = 580;
 player4.posX = 50;
 player4.posY = 620;
-var popup = new Popup();
 player1.active = true;
 player1.meeple.style.top = player1.posY + "px";
 player1.meeple.style.left = player1.posX + "px";
@@ -329,14 +408,16 @@ player3.meeple.style.top = player3.posY + "px";
 player3.meeple.style.left = player3.posX + "px";
 player4.meeple.style.top = player4.posY + "px";
 player4.meeple.style.left = player4.posX + "px";
+var dice = new Dice();
+var popup = new Popup();
 var snd = new Audio("/assets/music/dice-1.wav");
+var game = new Game();
+var popupQuestion = new PopupQuestion();
 
 window.onload = function (){
     var diceButton = document.getElementById("diceButton");
     diceButton.onclick = function () {
-        document.getElementById("diceImage").style.display = "inline-block";
-        var diceResult = dice.roll();//genera un valor aleatorio que será las posiciones a mover la ficha
-        movePlayer(dice,diceResult);//lanza el dado y mueve la ficha hasta la posicion indicada por  el.
+        runTurn(game.rollDice());//lanza el dado y mueve la ficha hasta la posicion indicada por  el.
     }
     document.getElementById("popup-close").addEventListener("click", function () {
         popup.close();
