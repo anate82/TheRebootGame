@@ -163,6 +163,12 @@ thead {
 #board tr:nth-child(2) td:nth-child(3) {
     background-image:url("/assets/images/c29.png");
 }
+#board tr:nth-child(2) td:nth-child(2) {
+    background-image:url("/assets/images/c30.png");
+}
+#board tr:nth-child(3) td:nth-child(2) {
+    background-image:url("/assets/images/c31.png");
+}
 
 
 td {

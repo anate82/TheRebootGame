@@ -54,9 +54,11 @@ var Player = function (meeple) {
     this.meeple = meeple;
 
     this.move = function(diceRoll) {
+        var snd = new Audio ("/assets/music/Astronomia.mp3");
         var timerId = setInterval((function () {
             if (diceRoll === 0){
                 clearInterval(timerId);
+                snd.pause();
                 this.direction = 1;
                 this.runEvent(this.cell);
                 if(this.cell === 36) {
@@ -70,10 +72,12 @@ var Player = function (meeple) {
                 this.direction = -1;
             } 
             if (this.direction === -1) {
+                snd.play();
                 this.cell--;
                 moveOnReverse(this);
                 document.getElementById("diceImage").style.display = "none";
             } else {
+                //snd.pause();
                 this.cell++;
                 moveOnBoard(this);
                 document.getElementById("diceImage").style.display = "none";
@@ -108,9 +112,9 @@ var Player = function (meeple) {
         this.direction = -1;
         this.move(2);
     }
-    this.resetGame = function () {
+    this.resetGame = function (cell) {
         this.direction = -1;
-        this.move (23);
+        this.move (cell);
     }
     this.moveFivePosition = function () {
         this.move (5);
@@ -134,16 +138,20 @@ var Player = function (meeple) {
             case 24:
             case 34:popup.message("No has entregado el proyecto a tiempo!!!! Ohhh...vuelves a empezar el bootcamp");
                     popup.show();
-                    this.resetGame ();
+                    this.resetGame (cell-1);
                     break;
             case 18:popup.message("Nestor te ayuda con tus dudas y avanzas 5 posiciones!!");
                     popup.show();
                     this.moveFivePosition ();
                     break; 
+            case 2:
+            case 3:
+            case 4:
+            case 5:
             case 27:popup.message("Llegas tarde..... Te llevas un PUNISHER: Pierdes un turno por listo :(");//pierde un turno, pendiente de finalizar 
                     popup.show();
-                    player.active = true;
-                    checkTurn(player);
+                    this.moveCount = 1;
+                    this.active = false;
                     break;
 //******* Revisar pq el popup se cierra cuando se inserta la información en el input ****************/
    /*        case 2:
@@ -158,6 +166,17 @@ var Player = function (meeple) {
         }
     }
 };
+function checkTurn (){
+    if (player1.active){
+        console.log("player1 active false");
+        player1.active = false;
+        player2.active = true; 
+    } else {
+        console.log("player1 active true");
+        player1.active = true;
+        player2.active = false; 
+    }
+}
 
 function answerPopup(player){
     if (document.getElementById("inputPopUp").value === "Spock") {
@@ -246,7 +265,6 @@ function moveDice (dice, diceResult, player){
         snd.play();
         cont--;
         let random = Math.floor((Math.random()*6)+1);
-        console.log(random);
         document.getElementById("diceImage").src = dice['side'+random];
         if (cont === 0) {
             clearInterval(timerIdDice);
@@ -266,15 +284,29 @@ function moveDice (dice, diceResult, player){
     document.getElementById("inputPopUp").style.visibility = "hidden";
 }
 
-function checkTurn (player){
-    if (player1.active){
-        player1.active = false;
-        player2.active = true; 
-    } else {
+function movePlayer(dice, diceResult) {
+    if (!player1.active && player2.moveCount > 0){
         player1.active = true;
-        player2.active = false; 
+        player1.moveCount = 0;
+        player2.moveCount = 0;
+    }
+    if (player1.active) {
+        moveDice(dice, diceResult, player1);
+        if (player2.moveCount > 0){
+            player2.moveCount--;
+        } else {
+            checkTurn();
+        }
+    } else if (player2.active) {
+        moveDice(dice, diceResult, player2);
+        if (player1.moveCount > 0) {
+            player1.moveCount--;
+        } else {
+            checkTurn();
+        }
     }
 }
+
 
 /*BUCLE PRINCIPAL DEL JUEGO*/
 
@@ -306,13 +338,8 @@ window.onload = function (){
     diceButton.onclick = function () {
         document.getElementById("diceImage").style.display = "inline-block";
         var diceResult = dice.roll();
-        if (player1.active) {
-            moveDice(dice, diceResult, player1);
-            checkTurn(player1);
-        } else if (player2.active) {
-            moveDice(dice, diceResult, player2);
-            checkTurn(player2);
-        }
+        movePlayer(dice,diceResult);
+       
     }
     document.getElementById("popup-close").addEventListener("click", function () {
         popup.close();
