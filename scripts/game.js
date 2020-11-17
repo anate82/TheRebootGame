@@ -144,10 +144,8 @@ var Player = function (meeple) {
                     popup.show();
                     this.moveFivePosition ();
                     break; 
-            case 2:
-            case 3:
+            
             case 4:
-            case 5:
             case 27:popup.message("Llegas tarde..... Te llevas un PUNISHER: Pierdes un turno por listo :(");//pierde un turno, pendiente de finalizar 
                     popup.show();
                     this.moveCount = 1;
@@ -337,9 +335,8 @@ window.onload = function (){
     var diceButton = document.getElementById("diceButton");
     diceButton.onclick = function () {
         document.getElementById("diceImage").style.display = "inline-block";
-        var diceResult = dice.roll();
-        movePlayer(dice,diceResult);
-       
+        var diceResult = dice.roll();//genera un valor aleatorio que será las posiciones a mover la ficha
+        movePlayer(dice,diceResult);//lanza el dado y mueve la ficha hasta la posicion indicada por  el.
     }
     document.getElementById("popup-close").addEventListener("click", function () {
         popup.close();
