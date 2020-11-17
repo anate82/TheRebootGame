@@ -35,6 +35,7 @@ var Dice = function () {
         side5 : "assets/images/d5.png",
         side6 : "assets/images/d6.png"
     };
+<<<<<<< HEAD
 
     this.animateDice = function (diceResult) {
         var cont = 15;
@@ -59,6 +60,8 @@ var Dice = function () {
             }
         }, 550);
     }
+=======
+>>>>>>> 059c0dcaf90543c487fb441c99a95767c1a7c28d
 };
 
 /* 
@@ -230,8 +233,12 @@ var Game = function (){
 //******* Revisar pq el popup se cierra cuando se inserta la información en el input ****************/
             case 3:
             case 20:popupQuestion.messageQuestion("Responde a la pregunta, Rebooter: Piedra, papel, tijera, lagarto o ....");
+<<<<<<< HEAD
                   popupQuestion.show();
                   
+=======
+                   popupQuestion.show();
+>>>>>>> 059c0dcaf90543c487fb441c99a95767c1a7c28d
                    break;
         }
     }
@@ -260,6 +267,7 @@ var Game = function (){
         }
     }
 }
+<<<<<<< HEAD
 /*
 function checkTurn (){
     if (player1.active){
@@ -292,6 +300,8 @@ function answerPopup(player){
 
     }
 }*/
+=======
+>>>>>>> 059c0dcaf90543c487fb441c99a95767c1a7c28d
 
 /*OBJETO POPUP: define un objeto de tipo ventana emergente*/
 
