@@ -115,14 +115,10 @@ var Player = function (meeple) {
     this.moveFivePosition = function () {
         this.move (5);
     }
-<<<<<<< HEAD
-        
-=======
     /*FUNCIÓN RUNEVENT: define las casillas en las cuales se producirá
     un evento en el tablero. En base a la casilla en la que caiga el
     jugador, se llamará a una función u otra, y se pueden avanzar ó 
     perder posiciones*/
->>>>>>> 05596345c8d7e6f9ddf7381b9f49bd7d880f6baf
     this.runEvent = function (cell) {
         switch(cell) {
             case 6:
@@ -224,15 +220,6 @@ var Board = function () {
 /*FUNCIÓN MOVEONBOARD: solventa los problemas de giro en el tablero. Se realiza
 el movimiento en base al intervalo de casillas en el que se encuentre el jugador*/
 
-<<<<<<< HEAD
-function moveOnBoard(){
-    if (player1.cell >= 7 && player1.cell < 12 || player1.cell >= 25 && player1.cell < 28 || player1.cell >= 35 && player1.cell < 36 ) {
-        player1.moveUp();
-    } else if (player1.cell >=12 && player1.cell < 17 || player1.cell >= 28 && player1.cell < 31 || player1.cell === 36){ 
-        player1.moveLeft();
-    } else if (player1.cell >= 17 && player1.cell < 21 || player1.cell >= 31 && player1.cell < 33){
-        player1.moveDown();
-=======
 function moveOnBoard(player) {
     if (player.cell >= 7 && player.cell < 12 || player.cell >= 25 && player.cell < 28 || player.cell >= 35 && player.cell < 36 ) {
         player.moveUp(player);
@@ -240,7 +227,6 @@ function moveOnBoard(player) {
         player.moveLeft(player);
     } else if (player.cell >= 17 && player.cell < 21 || player.cell >= 31 && player.cell < 33) {
         player.moveDown(player);
->>>>>>> 05596345c8d7e6f9ddf7381b9f49bd7d880f6baf
     } else {
         player.moveRight(player);
     }
@@ -300,11 +286,6 @@ function checkTurn (player){
     }
 }
 
-<<<<<<< HEAD
-var dice = new Dice();
-var player1 = new Player("player1");
-var player2 = new Player("player2");
-=======
 /*BUCLE PRINCIPAL DEL JUEGO*/
 
 var dice = new Dice();
@@ -318,43 +299,18 @@ player3.posX = 50;
 player3.posY = 580;
 player4.posX = 50;
 player4.posY = 620;
->>>>>>> 05596345c8d7e6f9ddf7381b9f49bd7d880f6baf
 var popup = new Popup();
 player1.active = true;
 player1.meeple.style.top = player1.posY + "px";
 player1.meeple.style.left = player1.posX + "px";
 player2.meeple.style.top = player2.posY + "px";
-<<<<<<< HEAD
 player2.meeple.style.left = player2.posX;  
-=======
-player2.meeple.style.left = player2.posX + "px";
-player3.meeple.style.top = player3.posY + "px";
-player3.meeple.style.left = player3.posX + "px";
-player4.meeple.style.top = player4.posY + "px";
-player4.meeple.style.left = player4.posX + "px";
-var snd = new Audio("/assets/music/dice-1.wav");
->>>>>>> 05596345c8d7e6f9ddf7381b9f49bd7d880f6baf
 
 window.onload = function (){
     var diceButton = document.getElementById("diceButton");
     diceButton.onclick = function () {
         document.getElementById("diceImage").style.display = "inline-block";
         var diceResult = dice.roll();
-<<<<<<< HEAD
-        moveDice(dice, diceResult);
-        
-        popup.show();   
-    }
-        document.getElementsByClassName("popup-close")[0].onclick = function () {
-            popup.close();
-        }
-        document.getElementById("btn-popup-close").addEventListener("click", function () {
-            popup.close();
-    });
-    player.changePlayer()
-}
-
-=======
         if (player1.active) {
             moveDice(dice, diceResult, player1);
             checkTurn(player1);
@@ -376,4 +332,3 @@ window.onload = function (){
     });
  
 }
->>>>>>> 05596345c8d7e6f9ddf7381b9f49bd7d880f6baf
