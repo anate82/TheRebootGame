@@ -236,11 +236,6 @@ td {
     font-weight: bold;
 }
 
-#inputPopUp{
-    visibility: hidden;
-    z-index: 3;
-} 
- 
 #popup-close {
     position: absolute;
     top: 5px;
@@ -290,7 +285,6 @@ td {
 }
 
 #inputPopUp{
-    visibility: hidden;
     z-index: 3;
 } 
  

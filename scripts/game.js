@@ -27,12 +27,38 @@ var Dice = function () {
         var randomNumber = Math.floor((Math.random()*this.faces)+1);
         return randomNumber;
     }
-    this.side1 = "assets/images/d1.png";
-    this.side2 = "assets/images/d2.png";
-    this.side3 = "assets/images/d3.png";
-    this.side4 = "assets/images/d4.png";
-    this.side5 = "assets/images/d5.png";
-    this.side6 = "assets/images/d6.png";
+    this.diceFaces = {
+        side1 : "assets/images/d1.png",
+        side2 : "assets/images/d2.png",
+        side3 : "assets/images/d3.png",
+        side4 : "assets/images/d4.png",
+        side5 : "assets/images/d5.png",
+        side6 : "assets/images/d6.png"
+    };
+
+    this.animateDice = function (diceResult) {
+        var cont = 15;
+        var timerIdDice = setInterval (function () {
+            snd.play();
+            cont--;
+            let random = Math.floor((Math.random()*6)+1);
+            document.getElementById("diceImage").src = this.diceFaces['side'+random];
+            if (cont === 0) {
+                clearInterval(timerIdDice);
+                document.getElementById("diceImage").src = this.diceFaces['side'+diceResult];
+                if (diceResult === 1) {
+                    popup.message("Mueves "+ diceResult +" posicion!!!!");
+                    popup.show();
+                } else {
+                    popup.message("Mueves "+ diceResult +" posiciones!!!!");
+                    popup.show();
+                }
+                snd.pause();
+                //game.move(player,diceResult);
+                return;
+            }
+        }, 550);
+    }
 };
 
 /* 
@@ -92,12 +118,33 @@ var Game = function (){
 
     this.rollDice = function() {
         document.getElementById("diceImage").style.display = "inline-block";
-        return this.dice.roll();//genera un valor aleatorio que será las posiciones a mover la ficha
+        var roll = this.dice.roll();
+        snd.play();
+        let faceCont = 10;
+        var diceTimer = setInterval(function (){
+            faceCont--;
+            let random = Math.floor((Math.random()*6)+1);
+            document.getElementById("diceImage").src = this.dice.diceFaces['side'+random];
+            if (faceCont === 0) {
+                clearInterval(diceTimer);
+                document.getElementById("diceImage").src = this.dice.diceFaces['side'+roll];
+                if (roll === 1) {
+                    popup.message("Mueves "+ roll +" posicion!!!!");
+                    popup.show();
+                } else {
+                    popup.message("Mueves "+ roll +" posiciones!!!!");
+                    popup.show();
+                }
+            }
+        },300);
+        //dice.animateDice(this,player,roll);
+        return roll;//genera un valor aleatorio que será las posiciones a mover la ficha
     }
 
 
     this.move = function(player,diceRoll) {
         var snd = new Audio ("/assets/music/Astronomia.mp3");
+        var sndFinal = new Audio ("/assets/music/Noisestorm.mp3")
         var timerId = setInterval((function () {
             if (diceRoll === 0){
                 clearInterval(timerId);
@@ -105,6 +152,9 @@ var Game = function (){
                 player.direction = 1;
                 this.runEvent(player);
                 if(player.cell === 36) {
+                    var timeout = setTimeout(function() {
+                        sndFinal.play();
+                      }, 3000);
                     popup.message("Felicidades has entregado el proyecto!!! te has ganado unas buenas vacaciones");
                     popup.show();
                 }
@@ -147,8 +197,7 @@ var Game = function (){
     this.runEvent = function (player) {
         switch(player.cell) {
             case 6:
-            case 12:
-                    popup.message("Has estado estudiando mucho, avanzas 2 posiciones para que te veas los recursos adicionales");
+            case 12:popup.message("Has estado estudiando mucho, avanzas 2 posiciones para que te veas los recursos adicionales");
                     popup.show();
                     this.moveTwoPosition (player);
                     break;
@@ -181,31 +230,8 @@ var Game = function (){
 //******* Revisar pq el popup se cierra cuando se inserta la información en el input ****************/
             case 3:
             case 20:popupQuestion.messageQuestion("Responde a la pregunta, Rebooter: Piedra, papel, tijera, lagarto o ....");
-                   document.getElementById("inputPopUp").style.visibility = "visible";
-                   document.getElementById("btn-popup-confirmar").style.visibility = "visible";
-                   var botonConfirmar = document.getElementById("btn-popup-confirmar");
-                   popupQuestion.show();
-                   botonConfirmar.addEventListener("click", function (){
-                        if (document.getElementById("inputPopUp").value === "Spock") {
-                            entra = true;
-                            popupQuestion.messageQuestion("Correctisimo!!!! Avanzas dos posiciones");
-                            document.getElementById("inputPopUp").style.visibility = "hidden";
-                            document.getElementById("btn-popup-confirmar").style.visibility = "hidden";
-
-                            popupQuestion.show();
-                            this.moveTwoPosition (player);          
-                        } else {
-                            popupQuestion.messageQuestion("Ohhhhh!!!! Me había olvidado de que las personas normales tienen límites.... Retrocedes dos posiciones");
-                            document.getElementById("inputPopUp").style.visibility = "hidden";
-                            document.getElementById("btn-popup-confirmar").style.visibility = "hidden";
-                            popupQuestion.show();
-                            this.moveTwoBack (player);
-                        }
-                        
-                    }.bind (this));
-                    document.getElementById("popup-close-question").addEventListener("click", function () {
-                        popupQuestion.close();
-                    });
+                  popupQuestion.show();
+                  
                    break;
         }
     }
@@ -222,7 +248,7 @@ var Game = function (){
         }
     }
 
-    this.moveOnReverse = function () { 
+    this.moveOnReverse = function (player) { 
         if (player.cell <= 33 && player.cell > 31 ||player.cell <= 23 && player.cell > 19 || player.cell <= 5 && player.cell > 0) {
             player.moveLeft(player);
         } else if (player.cell <= 31 && player.cell > 29 || player.cell <= 19 && player.cell > 15) {
@@ -234,7 +260,7 @@ var Game = function (){
         }
     }
 }
-
+/*
 function checkTurn (){
     if (player1.active){
         console.log("player1 active false");
@@ -249,6 +275,7 @@ function checkTurn (){
 
 function answerPopup(player){
     if (document.getElementById("inputPopUp").value === "Spock") {
+
         popup.message("Correctisimo!!!! Avanzas dos posiciones");
         document.getElementById("inputPopUp").style.visibility = "hidden";
         popup.show();
@@ -262,8 +289,9 @@ function answerPopup(player){
         popup.show();
         player.moveTwoBack (player);
         document.getElementById("btn-popup-close").innerText = "Cerrar";
+
     }
-}
+}*/
 
 /*OBJETO POPUP: define un objeto de tipo ventana emergente*/
 
@@ -281,6 +309,7 @@ var Popup = function (){
     }
 }
 
+/*OBJETO POPUP: define un objeto de tipo ventana emergente*/
 var PopupQuestion = function (){
     this.popupQuestion = document.querySelector(".popup-wrapper-question");
     this.closeQuestion = document.querySelector(".popup-close-question");
@@ -338,33 +367,19 @@ function moveOnReverse(player) {
         player.moveDown(player);
     }
 }
+function moveEvent(type){
+    if (game.activePlayer === 1){
+        var p = player1;
+    } else {
+        var p = player2;
+    }
 
-/*FUNCIÓN MOVEDICE: genera un número aleatorio entre 1 y 6, el cual utiliza para
-mostrar la cara del dado animado. El dado "salta" 15 veces*/
-
-function moveDice (dice, diceResult, player){
-    var cont = 15;
-    var timerIdDice = setInterval (function () {
-        snd.play();
-        cont--;
-        let random = Math.floor((Math.random()*6)+1);
-        document.getElementById("diceImage").src = dice['side'+random];
-        if (cont === 0) {
-            clearInterval(timerIdDice);
-            document.getElementById("diceImage").src = dice['side'+diceResult];
-            if (diceResult === 1) {
-                popup.message("Mueves "+ diceResult +" posicion!!!!");
-                popup.show();
-            } else {
-                popup.message("Mueves "+ diceResult +" posiciones!!!!");
-                popup.show();
-            }
-            snd.pause();
-            game.move(player,diceResult);
-            return;
-        }
-    }, 550);
-    document.getElementById("inputPopUp").style.visibility = "hidden";
+    if (type === "forward"){
+        game.moveTwoPosition(p);
+    }
+    if (type === "back"){
+        game.moveTwoBack(p);
+    }
 }
 
 function runTurn(diceResult) {
@@ -374,29 +389,6 @@ function runTurn(diceResult) {
    } else {
         game.move(player2,diceResult);
    }
-   
-   
-    /* if (!player1.active && player2.moveCount > 0){
-        player1.active = true;
-        player1.moveCount = 0;
-        player2.moveCount = 0;
-    }
-    
-    if (player1.active) {
-        moveDice(diceResult, player1);
-        if (player2.moveCount > 0){
-            player2.moveCount--;
-        } else {
-            checkTurn();
-        }
-    } else if (player2.active) {
-        moveDice(diceResult, player2);
-        if (player1.moveCount > 0) {
-            player1.moveCount--;
-        } else {
-            checkTurn();
-        }
-    }*/
 }
 
 
@@ -430,19 +422,41 @@ var popupQuestion = new PopupQuestion();
 
 window.onload = function (){
     var diceButton = document.getElementById("diceButton");
+    var rollResult = 0;
+    var playerIdle = true;//nuestro jugador esta quieto
     diceButton.onclick = function () {
-        runTurn(game.rollDice());//lanza el dado y mueve la ficha hasta la posicion indicada por  el.
+        rollResult = game.rollDice();
+        playerIdle = false;
     }
     document.getElementById("popup-close").addEventListener("click", function () {
+        if(!playerIdle){
+            playerIdle = true;
+            runTurn(rollResult);//lanza el dado y mueve la ficha hasta la posicion indicada por  el.
+        }
         popup.close();
     });
     document.getElementById("btn-popup-close").addEventListener("click", function (){
-        /*if (!player1.active && player1.cell >= 2 && player1.cell <= 5) {
-            answerPopup(player1);
-        } else if (!player2.active && player2.cell >= 2 && player2.cell <= 5) {
-            answerPopup(player2);
-        }*/
+        if(!playerIdle){
+            playerIdle = true;
+            runTurn(rollResult);//lanza el dado y mueve la ficha hasta la posicion indicada por  el.
+        }
         popup.close();
+    });
+    document.getElementById("btn-popup-confirmar").addEventListener("click", function (){
+        popupQuestion.close();
+        if (document.getElementById("inputPopUp").value === "Spock") {
+            popup.message("Correctisimo!!!! Avanzas dos posiciones");
+            popup.show(); 
+            moveEvent("forward");          
+        } else {
+            popup.message("Ohhhhh!!!! Me había olvidado de que las personas normales tienen límites.... Retrocedes dos posiciones");
+            popup.show();
+            moveEvent("back");
+        }    
+    });
+    
+    document.getElementById("popup-close-question").addEventListener("click", function () {
+        popupQuestion.close();
     });
  
 }
