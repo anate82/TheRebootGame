@@ -99,18 +99,32 @@ thead {
 #board tr:nth-child(6) td:nth-child(5) {
     background-image:url("/assets/images/c5.png");
 }
+
+#board tr:nth-child(6) td:nth-child(6) {
+    background-image:url("/assets/images/c31.png");
+}
+
 #board tr:nth-child(5) td:nth-child(6) {
     background-image:url("/assets/images/c7.png");
 }
 #board tr:nth-child(4) td:nth-child(6) {
     background-image:url("/assets/images/c8.png");
 }
+#board tr:nth-child(3) td:nth-child(6) {
+    background-image:url("/assets/images/c14.png");
+}
+
 #board tr:nth-child(2) td:nth-child(6) {
     background-image:url("/assets/images/c10.png");
 }
 #board tr:nth-child(1) td:nth-child(6) {
     background-image:url("/assets/images/c11.png");
 }
+
+#board tr:nth-child(1) td:nth-child(5) {
+    background-image:url("/assets/images/c32.png");
+}
+
 #board tr:nth-child(1) td:nth-child(4) {
     background-image:url("/assets/images/c13.png");
 }
@@ -120,8 +134,16 @@ thead {
 #board tr:nth-child(1) td:nth-child(2) {
     background-image:url("/assets/images/c15.png");
 }
+
+#board tr:nth-child(1) td:nth-child(1) {
+    background-image:url("/assets/images/c8.png");
+}
+
 #board tr:nth-child(2) td:nth-child(1) {
     background-image:url("/assets/images/c17.png");
+}
+#board tr:nth-child(3) td:nth-child(1) {
+    background-image:url("/assets/images/c11.png");
 }
 
 #board tr:nth-child(4) td:nth-child(1) {
@@ -139,12 +161,21 @@ thead {
 #board tr:nth-child(5) td:nth-child(4) {
     background-image:url("/assets/images/c23.png");
 }
+
+#board tr:nth-child(5) td:nth-child(5) {
+    background-image:url("/assets/images/c15.png");
+}
+
 #board tr:nth-child(4) td:nth-child(5) {
     background-image:url("/assets/images/c25.png");
 }
 #board tr:nth-child(3) td:nth-child(5) {
     background-image:url("/assets/images/c26.png");
 }
+#board tr:nth-child(2) td:nth-child(5) {
+    background-image:url("/assets/images/c22.png");
+}
+
 #board tr:nth-child(2) td:nth-child(4) {
     background-image:url("/assets/images/c28.png");
 }
@@ -164,6 +195,10 @@ thead {
 
 #board tr:nth-child(4) td:nth-child(3) {
     background-image:url("/assets/images/c33.png");
+}
+
+#board tr:nth-child(4) td:nth-child(4) {
+    background-image:url("/assets/images/c3.png");
 }
 
 #board tr:nth-child(3) td:nth-child(4) {
