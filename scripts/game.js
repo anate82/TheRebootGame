@@ -375,7 +375,7 @@ window.onload = function (){
     var playerIdle = true; // playerIdle a true significa que nuestro jugador esta quieto (no es su turno de moverse por el tablero)
     diceButton.onclick = function () {
         rollResult = game.rollDice(); //Genera un valor aleatorio
-        playerIdle = false; //el jugador se debe mover
+        playerIdle = false; // A false significa que nuestro jugador no esta quieto (es su turno de moverse por el tablero)
     }
 
     /*cierre del popup con mensaje desde la x*/
