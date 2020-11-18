@@ -116,6 +116,7 @@ var Game = function (){
         return roll;//genera un valor aleatorio que será las posiciones a mover la ficha
     }
 
+    // Gestiona el movimiento del jugador, eventos, reproduce audio en victoria y eventos negativos
     this.move = function(player,diceRoll) {
         var snd = new Audio ("/assets/music/Astronomia.mp3");
         var sndFinal = new Audio ("/assets/music/Noisestorm.mp3")
@@ -165,13 +166,16 @@ var Game = function (){
         this.move (player,5);
     }
 
-    /*FUNCIÓN RUNEVENT: define las casillas en las cuales se producirá
-    un evento en el tablero. En base a la casilla en la que caiga el
-    jugador, se llamará a una función u otra, y se pueden avanzar ó 
-    perder posiciones*/
+    /*FUNCIÓN RUNEVENT: define las casillas en las cuales se producirá un evento en el tablero. En base a la casilla en la que caiga el
+    jugador, se llamará a una función u otra, y se pueden avanzar ó perder posiciones*/
+
     this.runEvent = function (player) {
 
         switch(player.cell) {
+            case 2:
+            case 32:popup.message("¿Qué le dice un GIF a un JPEG? ¡Anímate, hombre!");
+                    popup.show();
+                    break;
             case 6:
             case 12:popup.message("Has estado estudiando mucho, avanzas 2 posiciones para que te veas los recursos adicionales");
                     popup.show();
@@ -193,11 +197,10 @@ var Game = function (){
                     popup.show();
                     this.moveFivePosition (player);
                     break;
-
             case 28:popup.message("El hijo de un programador le pregunta a su padre: Papá, ¿Porque el sol nace por el este y se pone por el oeste?  El padre responde:  Funciona? No se toca...");
                     popup.show();
                     break;
-
+            case 20:
             case 31:popup.message("Programador(def.): Persona que resuelve un problema que tu no sabes que tienes, en una forma que tu no entiendes...");
                     popup.show();
                     break; 
@@ -398,7 +401,7 @@ window.onload = function (){
 
     /*cierre del popup con mensaje desde la x*/
     document.getElementById("popup-close").addEventListener("click", function () {
-        if (!playerIdle) { //SI el jugador se debe mover entonces iniciamos el movimiento
+        if (!playerIdle) { //Si el jugador se debe mover entonces iniciamos el movimiento
             playerIdle = true;
             runTurn(rollResult);//lanza el dado y mueve la ficha hasta la posicion indicada por  el.
         }
