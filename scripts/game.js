@@ -116,6 +116,7 @@ var Game = function (){
         return roll;//genera un valor aleatorio que será las posiciones a mover la ficha
     }
 
+    // Gestiona el movimiento del jugador, eventos, reproduce audio en victoria y eventos negativos
     this.move = function(player,diceRoll) {
         var snd = new Audio ("/assets/music/Astronomia.mp3");
         var sndFinal = new Audio ("/assets/music/Noisestorm.mp3")
@@ -165,10 +166,9 @@ var Game = function (){
         this.move (player,5);
     }
 
-    /*FUNCIÓN RUNEVENT: define las casillas en las cuales se producirá
-    un evento en el tablero. En base a la casilla en la que caiga el
-    jugador, se llamará a una función u otra, y se pueden avanzar ó 
-    perder posiciones*/
+    /*FUNCIÓN RUNEVENT: define las casillas en las cuales se producirá un evento en el tablero. En base a la casilla en la que caiga el
+    jugador, se llamará a una función u otra, y se pueden avanzar ó perder posiciones*/
+
     this.runEvent = function (player) {
 
         switch(player.cell) {
@@ -400,7 +400,7 @@ window.onload = function (){
 
     /*cierre del popup con mensaje desde la x*/
     document.getElementById("popup-close").addEventListener("click", function () {
-        if (!playerIdle) { //SI el jugador se debe mover entonces iniciamos el movimiento
+        if (!playerIdle) { //Si el jugador se debe mover entonces iniciamos el movimiento
             playerIdle = true;
             runTurn(rollResult);//lanza el dado y mueve la ficha hasta la posicion indicada por  el.
         }
