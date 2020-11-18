@@ -56,18 +56,18 @@ body {
 
 }
 
-#player1 {
+#player1,#player2{
     position: absolute;
     width: 30px;
     height: 30px;
 }
 
-#player2 {
+#player3,#player4{
+    display: none;
     position: absolute;
     width: 30px;
     height: 30px;
-    border-left: 100px;
-
+   /* border-left: 100px;*/
 }
 
 thead {
@@ -77,9 +77,6 @@ thead {
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     font-weight: bold;
-    /*background-image: url("/assets/images/title.png");
-    background-repeat: no-repeat;
-    padding-bottom: 100px;  */
 }
 
 #board tr:nth-child(3) td:nth-child(3) {
@@ -176,12 +173,6 @@ thead {
 #board tr:nth-child(3) td:nth-child(3) {
     background-image:url("/assets/images/woot.png");
 }
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 7c41a30bbb63d359d3dd675aacbf460a9204eb7d
 
 td {
     background-color: #1f2833;
