@@ -202,7 +202,6 @@ var Game = function (){
                     popup.show();
                     break; 
             case 4:
-            case 5:
             case 27:popup.message("Llegas tarde..... Te llevas un PUNISHER: Pierdes un turno por listo :(");
                     popup.show();
                     player.lostTurn = true;
