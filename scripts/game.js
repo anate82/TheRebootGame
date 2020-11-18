@@ -81,6 +81,7 @@ var Game = function (){
     this.dice = new Dice();
     this.activePlayer = 2;
 
+    // Realiza el cambio de jugador que va a mover
     this.changeActivePlayer = function (){
         if (this.activePlayer === 1){
             this.activePlayer = 2;
@@ -88,7 +89,8 @@ var Game = function (){
             this.activePlayer = 1;
         }
     }
-
+    
+    // Realiza la animacion del dado y muestra el numero de posiciones a mover por el tablero
     this.rollDice = function() {
         document.getElementById("diceImage").style.display = "inline-block";
         var roll = this.dice.roll();
@@ -200,6 +202,7 @@ var Game = function (){
                     popup.show();
                     break; 
             case 4:
+            case 5:
             case 27:popup.message("Llegas tarde..... Te llevas un PUNISHER: Pierdes un turno por listo :(");
                     popup.show();
                     player.lostTurn = true;
@@ -315,23 +318,36 @@ function moveEvent(type){
     }
 }
 
-/*Función principal de movimiento de los jugadores. Gestiona los cambios de turno y realiza los movimientos*/
+
+/* Función principal de movimiento de los jugadores. Gestiona los cambios de turno, realiza el calculo de los movimientos a realizar y cambia el color del boton de tirar el dado acorde con el color del jugador */
 function runTurn(diceResult) {
     game.changeActivePlayer(); 
     if (game.activePlayer === 1){
         if (player1.lostTurn){
+            document.getElementById("diceButton").style.backgroundColor = "#90F0E9";//Le toca tirar al jugador 1 boton verde
             game.move(player2,diceResult);
             player1.lostTurn = false;
             game.changeActivePlayer();
         } else {
+            if (player2.lostTurn){
+                document.getElementById("diceButton").style.backgroundColor = "#90F0E9";//Le toca tirar al jugador 1 boton verde
+            }else {
+                document.getElementById("diceButton").style.backgroundColor = "#90A3F0";//Le toca tirar al jugador 2 boton azul
+            }
             game.move(player1,diceResult);
         }
    } else if(game.activePlayer === 2){
         if (player2.lostTurn){
+            document.getElementById("diceButton").style.backgroundColor = "#90A3F0";//Le toca tirar al jugador 2 boton azul
             game.move(player1,diceResult);
             player2.lostTurn = false;
             game.changeActivePlayer();
         } else {
+            if (player1.lostTurn){
+                document.getElementById("diceButton").style.backgroundColor = "#90A3F0";//Le toca tirar al jugador 2 boton azul
+            } else {
+                document.getElementById("diceButton").style.backgroundColor = "#90F0E9";//Le toca tirar al jugador 1 boton verde
+            }
             game.move(player2,diceResult);
         }
    }
@@ -375,7 +391,7 @@ window.onload = function (){
     var playerIdle = true; // playerIdle a true significa que nuestro jugador esta quieto (no es su turno de moverse por el tablero)
     diceButton.onclick = function () {
         rollResult = game.rollDice(); //Genera un valor aleatorio
-        playerIdle = false; //el jugador se debe mover
+        playerIdle = false; // False significa que nuestro jugador no esta quieto (es su turno de moverse por el tablero)
     }
 
     /*cierre del popup con mensaje desde la x*/
@@ -389,7 +405,7 @@ window.onload = function (){
 
     /*cierre del popup con mensaje desde el boton*/
     document.getElementById("btn-popup-close").addEventListener("click", function (){
-        if (!playerIdle) { //SI el jugador se debe mover entonces iniciamos el movimiento
+        if (!playerIdle) { //Si el jugador se debe mover entonces iniciamos el movimiento
             playerIdle = true;
             runTurn(rollResult); //lanza el dado y mueve la ficha hasta la posicion indicada por  el.
         }
