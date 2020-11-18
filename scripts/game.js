@@ -89,7 +89,7 @@ var Game = function (){
             this.activePlayer = 1;
         }
     }
-    
+
     // Realiza la animacion del dado y muestra el numero de posiciones a mover por el tablero
     this.rollDice = function() {
         document.getElementById("diceImage").style.display = "inline-block";
@@ -322,28 +322,29 @@ function moveEvent(type){
 /* Función principal de movimiento de los jugadores. Gestiona los cambios de turno, realiza el calculo de los movimientos a realizar y cambia el color del boton de tirar el dado acorde con el color del jugador */
 function runTurn(diceResult) {
     game.changeActivePlayer(); 
-    if (game.activePlayer === 1){
-        if (player1.lostTurn){
+    if (game.activePlayer === 1) {
+
+        if (player1.lostTurn) {
             document.getElementById("diceButton").style.backgroundColor = "#90F0E9";//Le toca tirar al jugador 1 boton verde
             game.move(player2,diceResult);
             player1.lostTurn = false;
             game.changeActivePlayer();
         } else {
-            if (player2.lostTurn){
+            if (player2.lostTurn) {
                 document.getElementById("diceButton").style.backgroundColor = "#90F0E9";//Le toca tirar al jugador 1 boton verde
             }else {
                 document.getElementById("diceButton").style.backgroundColor = "#90A3F0";//Le toca tirar al jugador 2 boton azul
             }
             game.move(player1,diceResult);
         }
-   } else if(game.activePlayer === 2){
-        if (player2.lostTurn){
+   } else if(game.activePlayer === 2) {
+        if (player2.lostTurn) {
             document.getElementById("diceButton").style.backgroundColor = "#90A3F0";//Le toca tirar al jugador 2 boton azul
             game.move(player1,diceResult);
             player2.lostTurn = false;
             game.changeActivePlayer();
         } else {
-            if (player1.lostTurn){
+            if (player1.lostTurn) {
                 document.getElementById("diceButton").style.backgroundColor = "#90A3F0";//Le toca tirar al jugador 2 boton azul
             } else {
                 document.getElementById("diceButton").style.backgroundColor = "#90F0E9";//Le toca tirar al jugador 1 boton verde
@@ -391,7 +392,11 @@ window.onload = function (){
     var playerIdle = true; // playerIdle a true significa que nuestro jugador esta quieto (no es su turno de moverse por el tablero)
     diceButton.onclick = function () {
         rollResult = game.rollDice(); //Genera un valor aleatorio
+<<<<<<< HEAD
         playerIdle = false; // False significa que nuestro jugador no esta quieto (es su turno de moverse por el tablero)
+=======
+        playerIdle = false; // A false significa que nuestro jugador no esta quieto (es su turno de moverse por el tablero)
+>>>>>>> main
     }
 
     /*cierre del popup con mensaje desde la x*/
