@@ -129,7 +129,7 @@ thead {
     background-image:url("assets/images/c13.png");
 }
 #board tr:nth-child(1) td:nth-child(3) {
-    background-image:url("/assets/images/c14.png");
+    background-image:url("assets/images/c14.png");
 }
 #board tr:nth-child(1) td:nth-child(2) {
     background-image:url("assets/images/c15.png");
