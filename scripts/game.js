@@ -194,7 +194,7 @@ var Game = function (){
                     this.moveFivePosition (player);
                     break;
 
-            case 28:popup.message("El hijo de un programador le pregunta a su padre: Papá, ¿Porque el sol nase por el este y se pone por el oeste?  El padre responde:  Funciona? No se toca...");
+            case 28:popup.message("El hijo de un programador le pregunta a su padre: Papá, ¿Porque el sol nace por el este y se pone por el oeste?  El padre responde:  Funciona? No se toca...");
                     popup.show();
                     break;
 
