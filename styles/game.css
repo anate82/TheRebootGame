@@ -78,6 +78,9 @@ thead {
     margin-inline-end: 0px;
     font-weight: bold;
 }
+.imgPopup{
+    width: 100%;
+}
 
 #board tr:nth-child(3) td:nth-child(3) {
     background-color: #45a29e;

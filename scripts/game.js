@@ -190,6 +190,7 @@ var Game = function (){
 
             case 24:
             case 34:popup.message("No has entregado el proyecto a tiempo!!!! Ohhh...vuelves a empezar el bootcamp");
+                    showImagesPopup("./assets/images/fail.png");
                     popup.show();
                     this.startAgain (player);
                     break;
@@ -207,6 +208,7 @@ var Game = function (){
                     break; 
             case 4:
             case 27:popup.message("Llegas tarde..... Te llevas un PUNISHER: Pierdes un turno por listo :(");
+                    showImagesPopup("./assets/images/punisher.png");
                     popup.show();
                     player.lostTurn = true;
                     break;
@@ -243,6 +245,15 @@ var Game = function (){
         }
     }
 }
+
+function showImagesPopup (src){
+    let botonPopup = document.getElementById("btn-popup-close");
+    let imgPopup = document.createElement("img");
+    imgPopup.setAttribute("src",src);
+    imgPopup.setAttribute("class","imgPopup");
+    document.getElementById("popup-content").insertBefore(imgPopup,botonPopup);
+}
+
 
 /*OBJETO POPUP: define un objeto de tipo ventana emergente*/
 
@@ -406,6 +417,10 @@ window.onload = function (){
             playerIdle = true;
             runTurn(rollResult);//lanza el dado y mueve la ficha hasta la posicion indicada por  el.
         }
+        if(document.getElementsByClassName("imgPopup")[0] !== undefined){
+            console.log("cerrar");
+            document.getElementById("popup-content").removeChild(document.getElementsByClassName("imgPopup")[0]);
+        }
         popup.close();
     });
 
@@ -414,6 +429,10 @@ window.onload = function (){
         if (!playerIdle) { //Si el jugador se debe mover entonces iniciamos el movimiento
             playerIdle = true;
             runTurn(rollResult); //lanza el dado y mueve la ficha hasta la posicion indicada por  el.
+        }
+        if(document.getElementsByClassName("imgPopup")[0] !== undefined){
+            console.log("cerrar");
+            document.getElementById("popup-content").removeChild(document.getElementsByClassName("imgPopup")[0]);
         }
         popup.close();
     });
