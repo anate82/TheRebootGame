@@ -143,11 +143,11 @@ var Game = function (){
             if (player.direction === -1) {
                 snd.play();
                 player.cell--;
-                moveOnReverse(player);
+                this.moveOnReverse(player);
                 document.getElementById("diceImage").style.display = "none";
             } else {
                 player.cell++;
-                moveOnBoard(player);
+                this.moveOnBoard(player);
                 document.getElementById("diceImage").style.display = "none";
             }
         }).bind(this),1000);
