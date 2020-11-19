@@ -28,12 +28,12 @@ var Dice = function () {
         return randomNumber;
     }
     this.diceFaces = {
-        side1 : "/assets/images/d1.png",
-        side2 : "/assets/images/d2.png",
-        side3 : "/assets/images/d3.png",
-        side4 : "/assets/images/d4.png",
-        side5 : "/assets/images/d5.png",
-        side6 : "/assets/images/d6.png"
+        side1 : "assets/images/d1.png",
+        side2 : "assets/images/d2.png",
+        side3 : "assets/images/d3.png",
+        side4 : "./assets/images/d4.png",
+        side5 : "./assets/images/d5.png",
+        side6 : "./assets/images/d6.png"
     };
 };
 
@@ -95,6 +95,7 @@ var Game = function (){
         document.getElementById("diceImage").style.display = "inline-block";
         var roll = this.dice.roll();
         let faceCont = 10;
+        var snd = new Audio("./assets/music/dice-1.wav"); // audio del dado
         var diceTimer = setInterval(function (){
             snd.play();
             faceCont--;
@@ -118,8 +119,8 @@ var Game = function (){
 
     // Gestiona el movimiento del jugador, eventos, reproduce audio en victoria y eventos negativos
     this.move = function(player,diceRoll) {
-        var snd = new Audio ("/assets/music/Astronomia.mp3");
-        var sndFinal = new Audio ("/assets/music/Noisestorm.mp3")
+        var snd = new Audio ("assets/music/Astronomia.mp3");
+        var sndFinal = new Audio ("assets/music/Noisestorm.mp3")
         var timerId = setInterval((function () {
             if (diceRoll === 0){
                 clearInterval(timerId);
@@ -385,7 +386,7 @@ player4.meeple.style.left = player4.posX + "px";
 
 // Creamos las variables de los objetos dado, juego y popup (mensajes y entrada informacion usuarios)
 var dice = new Dice();
-var snd = new Audio("/assets/music/dice-1.wav"); // audio del dado
+
 var game = new Game();
 var popup = new Popup(); //Objeto popup para mensajes
 var popupQuestion = new PopupQuestion(); //Objeto popup para introducir por teclado respuesta del usuario
