@@ -115,7 +115,7 @@ thead {
 }
 
 #board tr:nth-child(2) td:nth-child(6) {
-    background-image:url("/assets/images/c10.png");
+    background-image:url("../assets/images/c10.png");
 }
 #board tr:nth-child(1) td:nth-child(6) {
     background-image:url("../assets/images/c11.png");
