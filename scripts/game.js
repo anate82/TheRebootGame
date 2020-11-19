@@ -246,7 +246,7 @@ var Game = function (){
     }
 }
 
-function showImagesPopup (src){
+function showImagesPopup (src) {
     let botonPopup = document.getElementById("btn-popup-close");
     let imgPopup = document.createElement("img");
     imgPopup.setAttribute("src",src);
@@ -287,7 +287,7 @@ var PopupQuestion = function (){
 }
 
 /*FUNCIÓN MOVEONBOARD: solventa los problemas de giro en el tablero. Se realiza
-el movimiento en base al intervalo de casillas en el que se encuentre el jugador*/
+el movimiento en base al intervalo de casillas en el que se encuentre el jugador
 
 function moveOnBoard(player) {
     if (player.cell >= 7 && player.cell < 12 || player.cell >= 25 && player.cell < 28 || player.cell >= 35 && player.cell < 36 ) {
@@ -302,7 +302,7 @@ function moveOnBoard(player) {
 }
 
 /*FUNCIÓN MOVEONREVERSE: solventa el problema del movimiento hacia atrás en las
-distintas situaciones en las que se puede encontrar ésta condición en el tablero*/
+distintas situaciones en las que se puede encontrar ésta condición en el tablero
 
 function moveOnReverse(player) {
     if (player.cell <= 33 && player.cell > 31 ||player.cell <= 23 && player.cell > 19 || player.cell <= 5 && player.cell > 0) {
@@ -314,7 +314,7 @@ function moveOnReverse(player) {
     } else if (player.cell === 34 || player.cell === 33 || player.cell <= 26 && player.cell > 23 || player.cell <= 10 && player.cell > 5) {
         player.moveDown(player);
     }
-}
+}*/
 
 /* Realiza el movimiento para el evento que se produce cuando se muestra el popup question */
 function moveEvent(type){
