@@ -1,6 +1,6 @@
 body {
     
-    background-image: url("assets/images/bodybg.png");
+    background-image: url("../assets/images/bodybg.png");
     background-attachment: fixed;
     width: 100%;
     height: 100%;
@@ -202,11 +202,11 @@ thead {
 }
 
 #board tr:nth-child(3) td:nth-child(4) {
-    background-image:url("/assets/images/c35.png");
+    background-image:url("../assets/images/c35.png");
 }
 
 #board tr:nth-child(3) td:nth-child(3) {
-    background-image:url("/assets/images/woot.png");
+    background-image:url("../assets/images/woot.png");
 }
 
 td {
