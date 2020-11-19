@@ -187,18 +187,20 @@ var Game = function (){
                     popup.show();
                     this.moveTwoBack (player);
                     break;
-
             case 24:
-            case 34:popup.message("No has entregado el proyecto a tiempo!!!! Ohhh...vuelves a empezar el bootcamp");
+            case 34:
+                    popup.message("No has entregado el proyecto a tiempo!!!! Ohhh...vuelves a empezar el bootcamp");
                     showImagesPopup("./assets/images/fail.png");
                     popup.show();
                     this.startAgain (player);
-                    break;
+                    break;*/
 
             case 17:popup.message("Nestor te ayuda con tus dudas y avanzas 5 posiciones!!");
+                    showImagesPopup("./assets/images/nestor02.png");
                     popup.show();
                     this.moveFivePosition (player);
                     break;
+            case 13:
             case 28:popup.message("El hijo de un programador le pregunta a su padre: Papá, ¿Porque el sol nace por el este y se pone por el oeste?  El padre responde:  Funciona? No se toca...");
                     popup.show();
                     break;
@@ -227,24 +229,25 @@ var Game = function (){
             player.moveLeft(player);
         } else if (player.cell >= 17 && player.cell < 21 || player.cell >= 31 && player.cell < 33) {
             player.moveDown(player);
-        } else {
+        } else if (player.cell >= 1 && player.cell <7 || player.cell >= 21 && player.cell < 25 || player.cell >= 32 && player.cell < 35){
             player.moveRight(player);
         }
     }
 
     /* Realiza el movimiento de retroceso en el tablero de juego de las fichas */
-    this.moveOnReverse = function (player) { 
-        if (player.cell <= 33 && player.cell > 31 ||player.cell <= 23 && player.cell > 19 || player.cell <= 5 && player.cell > 0) {
-            player.moveLeft(player);
-        } else if (player.cell <= 31 && player.cell > 29 || player.cell <= 19 && player.cell > 15) {
-            player.moveUp(player);
-        } else if (player.cell === 35 || player.cell <= 29 && player.cell > 26 || player.cell <= 15  && player.cell > 10) {
+    this.moveOnReverse = function (player) {
+        if (player.cell > 34 && player.cell <= 35 || player.cell <= 29 && player.cell > 26 || player.cell <= 15 && player.cell > 10){
             player.moveRight(player);
-        } else if (player.cell === 34 || player.cell === 33 || player.cell <= 26 && player.cell > 23 || player.cell <= 10 && player.cell > 5) {
+        } else if (player.cell <= 34 && player.cell >33 || player.cell <=26 && player.cell > 23 || player.cell <=10 && player.cell > 5){
             player.moveDown(player);
+        } else if (player.cell <= 33 && player.cell >31 || player.cell <= 23 && player.cell > 19 || player.cell <=5 && player.cell > 0){
+            player.moveLeft(player);
+        } else if (player.cell <= 31 && player.cell > 29 || player.cell <= 19 && player.cell >15){
+            player.moveUp(player);
         }
     }
 }
+
 
 function showImagesPopup (src) {
     let botonPopup = document.getElementById("btn-popup-close");
@@ -286,36 +289,6 @@ var PopupQuestion = function (){
     }
 }
 
-/*FUNCIÓN MOVEONBOARD: solventa los problemas de giro en el tablero. Se realiza
-el movimiento en base al intervalo de casillas en el que se encuentre el jugador
-
-function moveOnBoard(player) {
-    if (player.cell >= 7 && player.cell < 12 || player.cell >= 25 && player.cell < 28 || player.cell >= 35 && player.cell < 36 ) {
-        player.moveUp(player);
-    } else if (player.cell >=12 && player.cell < 17 || player.cell >= 28 && player.cell < 31 || player.cell === 36) { 
-        player.moveLeft(player);
-    } else if (player.cell >= 17 && player.cell < 21 || player.cell >= 31 && player.cell < 33) {
-        player.moveDown(player);
-    } else {
-        player.moveRight(player);
-    }
-}
-
-/*FUNCIÓN MOVEONREVERSE: solventa el problema del movimiento hacia atrás en las
-distintas situaciones en las que se puede encontrar ésta condición en el tablero
-
-function moveOnReverse(player) {
-    if (player.cell <= 33 && player.cell > 31 ||player.cell <= 23 && player.cell > 19 || player.cell <= 5 && player.cell > 0) {
-        player.moveLeft(player);
-    } else if (player.cell <= 31 && player.cell > 29 || player.cell <= 19 && player.cell > 15) {
-        player.moveUp(player);
-    } else if (player.cell === 35 || player.cell <= 29 && player.cell > 26 || player.cell <= 15  && player.cell > 10) {
-        player.moveRight(player);
-    } else if (player.cell === 34 || player.cell === 33 || player.cell <= 26 && player.cell > 23 || player.cell <= 10 && player.cell > 5) {
-        player.moveDown(player);
-    }
-}*/
-
 /* Realiza el movimiento para el evento que se produce cuando se muestra el popup question */
 function moveEvent(type){
     if (game.activePlayer === 1){
@@ -334,6 +307,7 @@ function moveEvent(type){
 
 
 /* Función principal de movimiento de los jugadores. Gestiona los cambios de turno, realiza el calculo de los movimientos a realizar y cambia el color del boton de tirar el dado acorde con el color del jugador */
+
 function runTurn(diceResult) {
     game.changeActivePlayer(); 
     if (game.activePlayer === 1) {
@@ -418,7 +392,6 @@ window.onload = function (){
             runTurn(rollResult);//lanza el dado y mueve la ficha hasta la posicion indicada por  el.
         }
         if(document.getElementsByClassName("imgPopup")[0] !== undefined){
-            console.log("cerrar");
             document.getElementById("popup-content").removeChild(document.getElementsByClassName("imgPopup")[0]);
         }
         popup.close();
@@ -431,7 +404,6 @@ window.onload = function (){
             runTurn(rollResult); //lanza el dado y mueve la ficha hasta la posicion indicada por  el.
         }
         if(document.getElementsByClassName("imgPopup")[0] !== undefined){
-            console.log("cerrar");
             document.getElementById("popup-content").removeChild(document.getElementsByClassName("imgPopup")[0]);
         }
         popup.close();
