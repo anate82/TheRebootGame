@@ -39,3 +39,7 @@ Este proyecto está bajo la Licencia (MIT License) - mira el archivo [LICENSE.md
 
 * Super Álvaro, nuestro salvavidas 📢
 * Nestor te debemos una 🍺. 
+
+## Música
+* Vicetone & Tony Igy - Astronomia
+* Noisestorm - Crab Rave 
