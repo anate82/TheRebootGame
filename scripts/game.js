@@ -193,7 +193,7 @@ var Game = function (){
                     showImagesPopup("./assets/images/fail.png");
                     popup.show();
                     this.startAgain (player);
-                    break;*/
+                    break;
 
             case 17:popup.message("Nestor te ayuda con tus dudas y avanzas 5 posiciones!!");
                     showImagesPopup("./assets/images/nestor02.png");

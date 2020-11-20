@@ -89,127 +89,228 @@ thead {
 #board tr:nth-child(6) td:nth-child(1) {
     background-color: #00a1c9;
 }
+
+/* Casilla 2*/
 #board tr:nth-child(6) td:nth-child(2) {
     background-image:url("../assets/images/c2.png");
+    border-bottom: 4px solid white;
 }
+
+/* Casilla 3*/
 #board tr:nth-child(6) td:nth-child(3) {
     background-image:url("../assets/images/c3.png");
+    border-bottom: 4px solid white;
 }
+
+/* Casilla 4*/
 #board tr:nth-child(6) td:nth-child(4) {
     background-image:url("../assets/images/c4.png");
+    border-bottom: 4px solid white;
 }
 
+/* Casilla 5*/
 #board tr:nth-child(6) td:nth-child(5) {
     background-image:url("../assets/images/c5.png");
+    border-bottom: 4px solid white;
 }
 
+/* Casilla 6*/
 #board tr:nth-child(6) td:nth-child(6) {
     background-image:url("../assets/images/c31.png");
+    border-bottom: 4px solid white;
+    border-right: 4px solid white;
 }
 
+/* Casilla 7*/
 #board tr:nth-child(5) td:nth-child(6) {
     background-image:url("../assets/images/c7.png");
+    border-right: 4px solid white;
 }
+
+/* Casilla 8*/
 #board tr:nth-child(4) td:nth-child(6) {
     background-image:url("../assets/images/c8.png");
+    border-right: 4px solid white;
 }
+
+/* Casilla 9*/
 #board tr:nth-child(3) td:nth-child(6) {
     background-image:url("../assets/images/c14.png");
+    border-right: 4px solid white;
 }
 
+/* Casilla 10*/
 #board tr:nth-child(2) td:nth-child(6) {
     background-image:url("../assets/images/c10.png");
+    border-right: 4px solid white;
 }
+
+/* Casilla 11*/
 #board tr:nth-child(1) td:nth-child(6) {
     background-image:url("../assets/images/c11.png");
+    border-top: 4px solid white;
+    border-right: 4px solid white;
+
 }
 
+/* Casilla 12*/
 #board tr:nth-child(1) td:nth-child(5) {
     background-image:url("../assets/images/c32.png");
+    border-top: 4px solid white;
 }
 
+/* Casilla 13*/
 #board tr:nth-child(1) td:nth-child(4) {
     background-image:url("../assets/images/c13.png");
+    border-top: 4px solid white;
 }
+
+/* Casilla 14*/
 #board tr:nth-child(1) td:nth-child(3) {
     background-image:url("../assets/images/c14.png");
+    border-top: 4px solid white;
 }
+
+/* Casilla 15*/
 #board tr:nth-child(1) td:nth-child(2) {
     background-image:url("../assets/images/c15.png");
+    border-top: 4px solid white;
 }
 
+/* Casilla 16*/
 #board tr:nth-child(1) td:nth-child(1) {
     background-image:url("../assets/images/c8.png");
+    border-top: 4px solid white;
+    border-left: 4px solid white;
 }
 
+/* Casilla 17*/
 #board tr:nth-child(2) td:nth-child(1) {
     background-image:url("../assets/images/c17.png");
+    border-left: 4px solid white;
 }
+
+/* Casilla 18*/
 #board tr:nth-child(3) td:nth-child(1) {
     background-image:url("../assets/images/c11.png");
+    border-left: 4px solid white;
 }
 
+/* Casilla 19*/
 #board tr:nth-child(4) td:nth-child(1) {
     background-image:url("../assets/images/c19.png");
+    border-left: 4px solid white;
 }
+
+/* Casilla 20*/
 #board tr:nth-child(5) td:nth-child(1) {
     background-image:url("../assets/images/c20.png");
+    border-left: 4px solid white;
+    border-bottom: 4px solid white;
 }
+
+/* Casilla 21*/
 #board tr:nth-child(5) td:nth-child(2) {
     background-image:url("../assets/images/c21.png");
+    border-bottom: 4px solid white;
 }
+
+/* Casilla 22*/
 #board tr:nth-child(5) td:nth-child(3) {
     background-image:url("../assets/images/c22.png");
+    border-bottom: 4px solid white;
 }
+
+/* Casilla 23*/
 #board tr:nth-child(5) td:nth-child(4) {
     background-image:url("../assets/images/c23.png");
+    border-bottom: 4px solid white;
 }
 
+/* Casilla 24*/
 #board tr:nth-child(5) td:nth-child(5) {
     background-image:url("../assets/images/c15.png");
+    border-bottom: 4px solid white;
+    border-right: 4px solid white;
 }
 
+/* Casilla 25*/
 #board tr:nth-child(4) td:nth-child(5) {
     background-image:url("../assets/images/c25.png");
+    border-right: 4px solid white;
 }
+
+/* Casilla 26*/
 #board tr:nth-child(3) td:nth-child(5) {
     background-image:url("../assets/images/c26.png");
+    border-right: 4px solid white;
 }
+
+/* Casilla 27*/
 #board tr:nth-child(2) td:nth-child(5) {
     background-image:url("../assets/images/c22.png");
+    border-top: 4px solid white;
+    border-right: 4px solid white;
 }
 
+/* Casilla 28*/
 #board tr:nth-child(2) td:nth-child(4) {
     background-image:url("../assets/images/c28.png");
+    border-top: 4px solid white;
 }
+
+/* Casilla 29*/
 #board tr:nth-child(2) td:nth-child(3) {
     background-image:url("../assets/images/c29.png");
+    border-top: 4px solid white;
 }
+
+/* Casilla 30*/
 #board tr:nth-child(2) td:nth-child(2) {
     background-image:url("../assets/images/c30.png");
+    border-top: 4px solid white;
+    border-left: 4px solid white;
 }
+
+/* Casilla 31*/
 #board tr:nth-child(3) td:nth-child(2) {
     background-image:url("../assets/images/c31.png");
+    border-left: 4px solid white;
 }
 
+/* Casilla 32*/
 #board tr:nth-child(4) td:nth-child(2) {
     background-image:url("../assets/images/c32.png");
+    border-left: 4px solid white;
+    border-bottom: 4px solid white;
 }
 
+/* Casilla 33*/
 #board tr:nth-child(4) td:nth-child(3) {
     background-image:url("../assets/images/c33.png");
+    border-bottom: 4px solid white;
 }
 
+/* Casilla 34*/
 #board tr:nth-child(4) td:nth-child(4) {
     background-image:url("../assets/images/c3.png");
+    border-bottom: 4px solid white;
+    border-right: 4px solid white;
 }
 
+/* Casilla 35*/
 #board tr:nth-child(3) td:nth-child(4) {
     background-image:url("../assets/images/c35.png");
+    border-top: 4px solid white;
+    border-right: 4px solid white;
 }
 
+/* Casilla 36*/
 #board tr:nth-child(3) td:nth-child(3) {
     background-image:url("../assets/images/woot.png");
+    border-top: 4px solid white;
+    border-left: 4px solid white;
+    border-bottom: 4px solid white;
 }
 
 td {
@@ -217,6 +318,8 @@ td {
     border: #45a29e solid 1px;
 }
 
+
+/* Parte de estilado del popup*/
 .popup-wrapper {
     background: rgba(0, 0, 0, 0.5);
     position: fixed;
@@ -319,6 +422,7 @@ td {
     font-size: 1.5rem;
 }
 
+/* Estilado del welcome.html */
 #welcome{
     background: rgba(0, 0, 0, 0.5);
     color: white;
