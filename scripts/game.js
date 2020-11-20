@@ -435,6 +435,7 @@ window.onload = function (){
         if(document.getElementsByClassName("imgPopup")[0] !== undefined){
             document.getElementById("popup-content").removeChild(document.getElementsByClassName("imgPopup")[0]);
         }
+        document.getElementById("inputPopUp").value = "Reboot";
         popup.close();
     });
 
@@ -454,6 +455,7 @@ window.onload = function (){
 
     /*cierre del popup con input desde la x*/
     document.getElementById("popup-close-question").addEventListener("click", function () {
+        document.getElementById("inputPopUp").value = "Reboot";
         popupQuestion.close();
     });
  
