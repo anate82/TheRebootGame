@@ -182,10 +182,39 @@ var Game = function (){
                     popup.show();
                     this.moveTwoPosition (player);
                     break;
+            case 18:
+            case 11:
+            case 25:popup.message("The Reboot Game");
+                    showImagesPopup("./assets/images/Einstein.jpg");
+                    popup.show();
+                    break;
+            case 19:
+            case 21:
+            case 29:popup.message("The Reboot Game");
+                    showImagesPopup("./assets/images/TitanicFloat.jpg");
+                    popup.show();
+                    break;
+            case 10:
+            case 30:
+            case 15:popup.message("The Reboot Game");
+                    showImagesPopup("./assets/images/programmersLife.jpg");
+                    popup.show();
+                    break;
+            case 7:
+            case 14:
+            case 33:popup.message("The Reboot Game");
+                    showImagesPopup("./assets/images/SheldonProgramadores.jpg");
+                    popup.show();
+                    break;
             case 9:
             case 16:popup.message("¡¡¡No has terminado el lab!!!, retrocede 2 posiciones para que te veas las slides");
                     popup.show();
                     this.moveTwoBack (player);
+                    break;
+            case 5:
+            case 22:popup.message("The Reboot Game");
+                    showImagesPopup("./assets/images/imageDesign.png");
+                    popup.show();
                     break;
             case 24:
             case 34:
@@ -412,7 +441,7 @@ window.onload = function (){
     /*Evento que recoge el click del popup con un input*/ 
     document.getElementById("btn-popup-confirmar").addEventListener("click", function (){
         popupQuestion.close();
-        if (document.getElementById("inputPopUp").value === "Spock") {
+        if ((document.getElementById("inputPopUp").value).toLowerCase() === "spock") {
             popup.message("Correctisimo!!!! Avanzas dos posiciones");
             popup.show(); 
             moveEvent("forward"); //funcion para realizar el movimiento de dos posiciones hacia adelante       
