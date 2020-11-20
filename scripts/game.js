@@ -178,7 +178,8 @@ var Game = function (){
                     popup.show();
                     break;
             case 6:
-            case 12:popup.message("Has estado estudiando mucho, avanzas 2 posiciones para que te veas los recursos adicionales");
+            case 12:popup.message("La clase de Alvaro te ha venido genial y puedes hacer el bonus, avanzas 2 posiciones");
+                    showImagesPopup("./assets/images/sketch.png");
                     popup.show();
                     this.moveTwoPosition (player);
                     break;
@@ -223,7 +224,6 @@ var Game = function (){
                     popup.show();
                     this.startAgain (player);
                     break;
-
             case 17:popup.message("Nestor te ayuda con tus dudas y avanzas 5 posiciones!!");
                     showImagesPopup("./assets/images/nestor02.png");
                     popup.show();
@@ -420,6 +420,8 @@ window.onload = function (){
             playerIdle = true;
             runTurn(rollResult);//lanza el dado y mueve la ficha hasta la posicion indicada por  el.
         }
+
+        //Elimina la imagen del popup
         if(document.getElementsByClassName("imgPopup")[0] !== undefined){
             document.getElementById("popup-content").removeChild(document.getElementsByClassName("imgPopup")[0]);
         }
@@ -432,6 +434,8 @@ window.onload = function (){
             playerIdle = true;
             runTurn(rollResult); //lanza el dado y mueve la ficha hasta la posicion indicada por  el.
         }
+
+        //Elimina la imagen del popup
         if(document.getElementsByClassName("imgPopup")[0] !== undefined){
             document.getElementById("popup-content").removeChild(document.getElementsByClassName("imgPopup")[0]);
         }

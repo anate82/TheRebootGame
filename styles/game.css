@@ -80,6 +80,7 @@ thead {
 }
 .imgPopup{
     width: 100%;
+    height: 350px;
 }
 
 #board tr:nth-child(3) td:nth-child(3) {
