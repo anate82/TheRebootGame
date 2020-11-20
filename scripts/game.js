@@ -200,6 +200,11 @@ var Game = function (){
                     showImagesPopup("./assets/images/programmersLife.jpg");
                     popup.show();
                     break;
+            case 5:
+            case 22:popup.message("The Reboot Game");
+                    showImagesPopup("./assets/images/imageDesign.png");
+                    popup.show();
+                    break;
             case 7:
             case 14:
             case 33:popup.message("The Reboot Game");
@@ -210,11 +215,6 @@ var Game = function (){
             case 16:popup.message("¡¡¡No has terminado el lab!!!, retrocede 2 posiciones para que te veas las slides");
                     popup.show();
                     this.moveTwoBack (player);
-                    break;
-            case 5:
-            case 22:popup.message("The Reboot Game");
-                    showImagesPopup("./assets/images/imageDesign.png");
-                    popup.show();
                     break;
             case 24:
             case 34:
